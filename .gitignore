@@ -2,3 +2,7 @@ build/cache/*
 build/downloads/*
 build/sstate-cache/*
 build/tmp/*
+build/bitbake.lock
+build/bitbake-cookerdaemon.log
+
+.vscode*
