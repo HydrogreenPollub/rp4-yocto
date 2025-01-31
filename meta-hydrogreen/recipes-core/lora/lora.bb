@@ -9,8 +9,17 @@ SRC_URI = " \
 
 S = "${WORKDIR}"
 
+# TODO add python3-pyserial
+RDEPENDS:${PN} += "python3-core"
+
 do_install() {
     install -d ${D}${bindir}
+
+    # Add python3 shebang
+    sed -i '1i#!/usr/bin/python3' ${WORKDIR}/lora_transmitter.py
+    sed -i '1i#!/usr/bin/python3' ${WORKDIR}/lora_receiver.py
+
+    # Install into binary directory
     install -m 0755 ${WORKDIR}/lora_transmitter.py ${D}${bindir}/lora-transmitter
     install -m 0755 ${WORKDIR}/lora_receiver.py ${D}${bindir}/lora-receiver
 }
