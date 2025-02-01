@@ -10,7 +10,7 @@ SRC_URI = " \
 S = "${WORKDIR}"
 
 # TODO add python3-pyserial
-RDEPENDS:${PN} += "python3-core"
+RDEPENDS:${PN} += "python3-core python3-pyserial"
 
 do_install() {
     install -d ${D}${bindir}
