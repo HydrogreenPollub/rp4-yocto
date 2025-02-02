@@ -17,11 +17,3 @@ IMAGE_ROOTFS_SIZE ?= "204800"
 #EXTRA_USERS_PARAMS = "\
 #    usermod -P 'toor' root \
 #    "
-
-# Rp4 specific changes
-# TODO fix settings not being applied to config.txt
-ENABLE_I2C = "1"
-RPI_EXTRA_CONFIG = " \
-    disable_splash=1 \
-    max_usb_current=1 \
-    "
