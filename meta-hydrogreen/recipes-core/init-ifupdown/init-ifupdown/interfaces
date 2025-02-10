@@ -1,11 +1,20 @@
 # /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
 
+# Loopback
 auto lo
 iface lo inet loopback
 
+# Static IP address
 auto eth0
 iface eth0 inet static
     address 192.168.1.100
     netmask 255.255.255.0
     gateway 192.168.1.1
     dns-nameservers 8.8.8.8
+
+# CAN configuration
+auto can0
+iface can0 inet manual
+    pre-up ip link set can0 type can bitrate 500000 restart-ms 100
+    up ip link set can0 up
+    down ip link set can0 down

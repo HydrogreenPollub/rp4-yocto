@@ -2,7 +2,10 @@
 ENABLE_UART = "1"
 BOOT_DELAY = "0"
 DISABLE_SPLASH = "1"
-ENABLE_I2C = "1"
+
+# CAN settings
+ENABLE_SPI_BUS = "1"
+RPI_EXTRA_CONFIG += "dtoverlay=mcp2515-can0,ocillator=12000000,interrupt=25,spimaxfrequency=2000000"
 
 # Waveshare display rp4 setup
 HDMI_GROUP = "2"
