@@ -1,11 +1,13 @@
 # Changes to config.txt
-ENABLE_UART = "1"
 BOOT_DELAY = "0"
 DISABLE_SPLASH = "1"
 
 # CAN settings
 ENABLE_SPI_BUS = "1"
-RPI_EXTRA_CONFIG:append = "dtoverlay=mcp2515-can0,ocillator=12000000,interrupt=25,spimaxfrequency=2000000"
+RPI_EXTRA_CONFIG:append = "dtoverlay=mcp2515-can0,ocillator=12000000,interrupt=25,spimaxfrequency=2000000\n"
+
+# RS485 settings
+ENABLE_UART = "1"
 
 # Waveshare display rp4 setup
 HDMI_GROUP = "2"
