@@ -3,7 +3,7 @@ SUMMARY = "A custom image for rp-4"
 LICENSE = "MIT"
 COMPATIBLE_MACHINE = "^rpi$"
 
-IMAGE_INSTALL:append = " packagegroup-rpi-test lora can-utils screen"
+IMAGE_INSTALL:append = " packagegroup-rpi-test lora can-utils screen telemetry"
 IMAGE_FEATURES += "ssh-server-dropbear"
 
 inherit core-image
