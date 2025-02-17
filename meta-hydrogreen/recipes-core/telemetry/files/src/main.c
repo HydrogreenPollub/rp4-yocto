@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-
 int main(int argc, char **argv) {
     int nochdir = 0;    // Change to "/"
     int noclose = 0;    // Redirect stdin, stdout and stderr to /dev/null
@@ -19,7 +18,7 @@ int main(int argc, char **argv) {
 
     int counter = 0;
     while(1) {
-        log_write("Hello world!\n", 13);
+        log_write("Hello world nr - %d\n", counter++);
         sleep(1);
     }
 
