@@ -19,10 +19,11 @@ int main(int argc, char **argv) {
 
     int counter = 0;
     while(1) {
-        fprintf(log, "Telemetry daemon has been running for %d seconds\n", counter++);
+        log_write("Hello world!\n", 13);
         sleep(1);
     }
 
-    fclose(log);
+    log_exit();
+
     return EXIT_SUCCESS;
 }
