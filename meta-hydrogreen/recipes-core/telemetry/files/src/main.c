@@ -1,3 +1,5 @@
+#include "log.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -13,17 +15,11 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    // Open Log file in append mode
-    FILE *log = fopen("/var/log/telemetry.log", "a");
-    if (!log) {
-        perror("Failed to open daemon log file");
-        return EXIT_FAILURE;
-    }
+    log_init();
 
     int counter = 0;
     while(1) {
         fprintf(log, "Telemetry daemon has been running for %d seconds\n", counter++);
-        fflush(log);
         sleep(1);
     }
 
