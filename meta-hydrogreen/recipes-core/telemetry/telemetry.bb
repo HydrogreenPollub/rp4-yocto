@@ -6,6 +6,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ad
 SRC_URI = " \
     file://telemetry \
     file://src/main.c \
+    file://src/can.c \
+    file://src/can.h \
     file://src/log.c \
     file://src/log.h \
     file://src/lora.c \
@@ -19,7 +21,7 @@ inherit update-rc.d
 INITSCRIPT_NAME = "telemetry"
 
 do_compile() {
-    ${CC} ${CFLAGS} ${LDFLAGS} ${WORKDIR}/src/main.c ${WORKDIR}/src/log.c ${WORKDIR}/src/lora.c -o ${S}/telemetry
+    ${CC} ${CFLAGS} ${LDFLAGS} ${WORKDIR}/src/main.c ${WORKDIR}/src/can.c ${WORKDIR}/src/log.c ${WORKDIR}/src/lora.c -o ${S}/telemetry
 }
 
 do_install() {

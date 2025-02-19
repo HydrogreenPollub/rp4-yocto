@@ -3,6 +3,5 @@
 
 int lora_connect();
 int lora_disconnect();
-int lora_configure();
 
 #endif
