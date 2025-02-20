@@ -3,7 +3,8 @@ SUMMARY = "A custom image for rp-4"
 LICENSE = "MIT"
 COMPATIBLE_MACHINE = "^rpi$"
 
-IMAGE_INSTALL:append = " packagegroup-rpi-test lora can-utils screen telemetry"
+# TODO check if gpiod works and if it does, use it for rs485 setup
+IMAGE_INSTALL:append = " packagegroup-rpi-test lora can-utils screen libgpiod telemetry"
 IMAGE_FEATURES += "ssh-server-dropbear"
 
 inherit core-image
