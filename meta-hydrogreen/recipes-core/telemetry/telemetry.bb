@@ -20,6 +20,9 @@ inherit update-rc.d
 
 INITSCRIPT_NAME = "telemetry"
 
+# Avoid referencing TMPDIR
+CFLAGS += "-fdebug-prefix-map=${TMPDIR}=."
+
 do_compile() {
     ${CC} ${CFLAGS} ${LDFLAGS} ${WORKDIR}/src/main.c ${WORKDIR}/src/can.c ${WORKDIR}/src/log.c ${WORKDIR}/src/lora.c -o ${S}/telemetry
 }

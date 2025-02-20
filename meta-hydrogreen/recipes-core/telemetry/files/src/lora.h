@@ -3,5 +3,6 @@
 
 int lora_connect();
 int lora_disconnect();
+int lora_send(char *data, int length);
 
 #endif

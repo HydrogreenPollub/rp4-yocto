@@ -74,3 +74,17 @@ int lora_disconnect() {
     }
     return EXIT_SUCCESS;
 }
+
+// TODO add \r automatically to not rely on function caller
+int lora_send(char *data, int length) {
+    /**
+     * We need to remember to end our message with "\r",
+     * which is also known as a carriage return
+     */
+    if(write(lora_port, data, length) < 0) {
+        log_write("LORA: Error %i from write: %s\n", errno, strerror(errno));
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
