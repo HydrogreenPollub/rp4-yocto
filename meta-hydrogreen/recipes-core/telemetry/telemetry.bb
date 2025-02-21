@@ -12,9 +12,14 @@ SRC_URI = " \
     file://src/log.h \
     file://src/lora.c \
     file://src/lora.h \
+    file://src/rs485.c \
+    file://src/rs485.h \
     "
 
 S = "${WORKDIR}/build"
+
+DEPENDS += "libgpiod"
+RDEPENDS_${PN} += "libgpiod"
 
 inherit update-rc.d
 
@@ -24,7 +29,13 @@ INITSCRIPT_NAME = "telemetry"
 CFLAGS += "-fdebug-prefix-map=${TMPDIR}=."
 
 do_compile() {
-    ${CC} ${CFLAGS} ${LDFLAGS} ${WORKDIR}/src/main.c ${WORKDIR}/src/can.c ${WORKDIR}/src/log.c ${WORKDIR}/src/lora.c -o ${S}/telemetry
+    ${CC} ${CFLAGS} ${LDFLAGS} \
+        ${WORKDIR}/src/main.c \
+        ${WORKDIR}/src/can.c \
+        ${WORKDIR}/src/log.c \
+        ${WORKDIR}/src/lora.c \
+        ${WORKDIR}/src/rs485.c \
+        -o ${S}/telemetry -lgpiod
 }
 
 do_install() {

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <errno.h>
 #include <net/if.h>
@@ -27,7 +28,10 @@ int can_connect() {
     struct ifreq ifr;
 
     strcpy(ifr.ifr_name, "can0");
-    ioctl(sock, SIOCGIFINDEX, &ifr);
+    if(ioctl(sock, SIOCGIFINDEX, &ifr) < 0) {
+        log_write("CAN: Error %i from ioctl: %s\n", errno, strerror(errno));
+        return EXIT_FAILURE;
+    }
 
     memset(&addr, 0, sizeof(addr));
     addr.can_family = AF_CAN;
@@ -62,4 +66,22 @@ int can_send(char *data, unsigned int length) {
     }
 
     return EXIT_SUCCESS;
+}
+
+/**
+ * Reads a single frame of data from the CAN bus
+ * Assumes that the user passed us a buffer of size 8 bytes
+ * Returns the amount of bytes read from bus.
+ */
+int can_receive(char *buffer) {
+    struct can_frame frame = { 0 };
+
+    // TODO maybe allow for setting filters, to allow choosing a particular device
+    int nbytes = read(sock, &frame, sizeof(frame));
+    
+    if(nbytes > 0) {
+        log_write("CAN: Reading packet from bus: can_id = 0x%X, can_dlc = %d\n", frame.can_id, frame.can_dlc);
+    }
+
+    return nbytes;
 }
