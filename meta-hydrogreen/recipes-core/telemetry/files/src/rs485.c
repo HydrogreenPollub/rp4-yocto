@@ -3,34 +3,43 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <errno.h>
 #include <unistd.h>
 #include <gpiod.h>
 
 #define EN_RS485 4
 
-static struct gpiod_chip *chip = { 0 };
-static struct gpiod_line *enable_rs485 = { 0 };
-
 int rs485_connect() {
-    chip = gpiod_chip_open("/dev/gpiochip0");
+    struct gpiod_chip *chip = gpiod_chip_open("/dev/gpiochip0");
     if(!chip) {
         log_write("RS485: Error %i from gpiod_chip_open: %s\n", errno, strerror(errno));
         return EXIT_FAILURE;
     }
 
-    // TODO maybe extract GPIO logic in case we decide to implement more logic
-    //enable_rs485 = gpiod_chip_get_line(chip, EN_RS485);
+    struct gpiod_line_settings *settings = gpiod_line_settings_new();
+    gpiod_line_settings_set_direction(settings, GPIOD_LINE_DIRECTION_OUTPUT);
+    gpiod_line_settings_set_output_value(settings, GPIOD_LINE_VALUE_INACTIVE); // Pull down
 
-    // Pull enable_rs485 line down
-    //gpiod_line_set_value(enable_rs485, 0);
+    struct gpiod_line_config *line_config = gpiod_line_config_new();
+    gpiod_line_config_add_line_settings(line_config, EN_RS485, 1, settings);
+
+    struct gpiod_request_config *request_config = gpiod_request_config_new();
+    gpiod_request_config_set_consumer(request_config, "rs485-pull-down");
+    struct gpiod_line_request *request = gpiod_chip_request_lines(chip, request_config, line_config);
+
+    // Release GPIO
+    gpiod_request_config_free(request_config);
+    gpiod_line_config_free(line_config);
+    gpiod_line_settings_free(settings);
+    gpiod_chip_close(chip);
+
+    gpiod_line_request_release(request);
 
     return EXIT_SUCCESS;
 }
 
 int rs485_disconnect() {
-    //gpiod_line_release(enable_rs485);
-    gpiod_chip_close(chip);
-
+    // TODO close serial device (right now we're not even opening it lol)
     return EXIT_SUCCESS;
 }
