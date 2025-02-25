@@ -18,13 +18,12 @@ static int sock = -1;
 
 int can_connect() {
     sock = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-    
     if(sock < 0) {
         log_write("CAN: Error %i from socket: %s\n", errno, strerror(errno));
         return EXIT_FAILURE;
     }
 
-    struct sockaddr_can addr;
+    struct sockaddr_can addr = { 0 };
     struct ifreq ifr;
 
     strcpy(ifr.ifr_name, "can0");
@@ -33,7 +32,6 @@ int can_connect() {
         return EXIT_FAILURE;
     }
 
-    memset(&addr, 0, sizeof(addr));
     addr.can_family = AF_CAN;
     addr.can_ifindex = ifr.ifr_ifindex;
 
@@ -42,6 +40,7 @@ int can_connect() {
         return EXIT_FAILURE;
     }
 
+    log_write("CAN: Connected successfully!\n");
     return EXIT_SUCCESS;
 }
 

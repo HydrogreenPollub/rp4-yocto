@@ -1,3 +1,5 @@
+#include "can.h"
+#include "lora.h"
 #include "log.h"
 
 #include <stdio.h>
@@ -15,13 +17,22 @@ int main(int argc, char **argv) {
     }
 
     log_init();
+    lora_connect();
+    can_connect();
 
-    int counter = 0;
+    log_write("DAEMON: Started successfully\n");
+
     while(1) {
-        log_write("Hello world nr - %d\n", counter++);
+        char can_buffer[8] = { 0 };
+        can_receive(can_buffer);
+
+        // TODO add \r to message
+        lora_send(can_buffer, 8);
         sleep(1);
     }
 
+    lora_disconnect();
+    can_disconnect();
     log_exit();
 
     return EXIT_SUCCESS;

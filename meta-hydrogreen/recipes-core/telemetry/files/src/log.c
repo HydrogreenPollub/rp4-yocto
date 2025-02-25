@@ -17,6 +17,8 @@ int log_init() {
         return EXIT_FAILURE;
     }
 
+    log_write("LOG: Started logging successfully\n");
+
     return EXIT_SUCCESS;
 }
 
@@ -37,5 +39,6 @@ int log_write(const char *fmt, ...) {
     vfprintf(log_file, fmt, args);
     va_end(args);
 
+    fflush(log_file);
     return EXIT_SUCCESS;
 }

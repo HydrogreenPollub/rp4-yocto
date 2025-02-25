@@ -64,6 +64,7 @@ int lora_connect() {
         return EXIT_FAILURE;
     }
     
+    log_write("LORA: Connected successfully!\n");
     return EXIT_SUCCESS;
 }
 
@@ -85,6 +86,8 @@ int lora_send(char *data, int length) {
         log_write("LORA: Error %i from write: %s\n", errno, strerror(errno));
         return EXIT_FAILURE;
     }
+
+    log_write("LORA: Sending %i bytes over lora\n", length);
 
     return EXIT_SUCCESS;
 }
