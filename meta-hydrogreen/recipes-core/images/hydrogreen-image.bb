@@ -4,8 +4,8 @@ LICENSE = "MIT"
 COMPATIBLE_MACHINE = "^rpi$"
 
 # TODO check if gpiod works and if it does, use it for rs485 setup
-IMAGE_INSTALL:append = " packagegroup-rpi-test lora can-utils screen libgpiod telemetry"
-IMAGE_FEATURES += "ssh-server-dropbear"
+IMAGE_INSTALL:append = " packagegroup-hydrogreen"
+IMAGE_FEATURES:remove = "package-management splash"
 
 inherit core-image
 inherit extrausers
