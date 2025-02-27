@@ -16,7 +16,7 @@ static int lora_port = -1;
 
 // TODO extract serial related logic to a separate file in order to reuse it for the GPS
 int lora_connect() {
-    lora_port = open(LORA_DEVICE, O_RDWR);
+    lora_port = open(LORA_DEVICE, O_RDWR | O_NDELAY | O_NONBLOCK);
 
     if (lora_port < 0) {
         log_write("LORA: Error %i from open: %s\n", errno, strerror(errno));
@@ -59,6 +59,7 @@ int lora_connect() {
     cfsetospeed(&tty, B9600);
 
     // Save changes
+    tcflush(lora_port, TCIOFLUSH);
     if(tcsetattr(lora_port, TCSANOW, &tty) != 0) {
         log_write("LORA: Error %i from tcsetattr: %s\n", errno, strerror(errno));
         return EXIT_FAILURE;
