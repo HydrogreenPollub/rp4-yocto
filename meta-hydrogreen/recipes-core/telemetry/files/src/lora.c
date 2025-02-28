@@ -1,5 +1,6 @@
 #include "lora.h"
 #include "log.h"
+#include "serial.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -16,52 +17,10 @@ static int lora_port = -1;
 
 // TODO extract serial related logic to a separate file in order to reuse it for the GPS
 int lora_connect() {
-    lora_port = open(LORA_DEVICE, O_RDWR | O_NDELAY | O_NONBLOCK);
+    lora_port = serial_get_device(LORA_DEVICE, 9600);
 
     if (lora_port < 0) {
-        log_write("LORA: Error %i from open: %s\n", errno, strerror(errno));
-        return EXIT_FAILURE;
-    }
-    
-    struct termios tty;
-
-    // Get current config
-    if(tcgetattr(lora_port, &tty) != 0) {
-        log_write("LORA: Error %i from tcgetattr: %s\n", errno, strerror(errno));
-        return EXIT_FAILURE;
-    }
-
-    // Configure serial interface
-    tty.c_cflag &= ~CSIZE;          // Clear size bits, before setting value
-    tty.c_cflag |= CS8;             // 8 Data bits
-    tty.c_cflag &= ~PARENB;         // Clear parity bit
-    tty.c_cflag &= ~CSTOPB;         // 1 stop bit
-
-    tty.c_cflag &= ~CRTSCTS;        // Disable RTS/CTS hardware flow
-    tty.c_cflag |= CREAD | CLOCAL;  // Turn on READ & ignore ctrl lines
-
-    tty.c_lflag &= ~ICANON;
-    tty.c_lflag &= ~ECHO;           // Disable echo
-    tty.c_lflag &= ~ECHOE;          // Disable erasure
-    tty.c_lflag &= ~ECHONL;         // Disable new-line echo
-    tty.c_lflag &= ~ISIG;           // Disable interpretation of INTR, QUIT and SUSP
-    tty.c_lflag &= ~(IXON | IXOFF | IXANY);
-    tty.c_lflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);
-
-    tty.c_oflag &= ~OPOST;          // Prevent interpretation of special characters
-    tty.c_oflag &= ~ONLCR;          // Prevent conversion of newline to carriage return
-
-    tty.c_cc[VTIME] = 0;            // Don't wait for read (Polling approach)
-    tty.c_cc[VMIN] = 0;
-
-    // Set baudrate
-    cfsetispeed(&tty, B9600);
-    cfsetospeed(&tty, B9600);
-
-    // Save changes
-    tcflush(lora_port, TCIOFLUSH);
-    if(tcsetattr(lora_port, TCSANOW, &tty) != 0) {
-        log_write("LORA: Error %i from tcsetattr: %s\n", errno, strerror(errno));
+        log_write("LORA: Error %i from serial_get_device: %s\n", errno, strerror(errno));
         return EXIT_FAILURE;
     }
     

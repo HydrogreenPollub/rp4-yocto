@@ -3,6 +3,7 @@ extern crate termios;
 use termios::*;
 
 use std::fs::File;
+use std::io::Write;
 use std::os::fd::AsRawFd;
 
 const lora_device_string: &str = "/dev/ttyS0";
@@ -11,6 +12,7 @@ fn main() -> std::io::Result<()> {
     let mut lora_device_file = File::options()
         .read(true)
         .write(true)
+        .create(false)
         .open(lora_device_string)?;
 
     let lora_device_fd = lora_device_file.as_raw_fd();
@@ -25,6 +27,9 @@ fn main() -> std::io::Result<()> {
     cfsetspeed(&mut tty, B9600)?;
     tcsetattr(lora_device_fd, TCSANOW, &tty);
     tcflush(lora_device_fd, TCIOFLUSH)?;
+
+    println!("Writing to lora device...\n");
+    write!(lora_device_file, "Hello world\r");
 
     Ok(())
 }

@@ -14,6 +14,8 @@ SRC_URI = " \
     file://src/lora.h \
     file://src/rs485.c \
     file://src/rs485.h \
+    file://src/serial.c \
+    file://src/serial.h \
     "
 
 S = "${WORKDIR}/build"
@@ -35,6 +37,7 @@ do_compile() {
         ${WORKDIR}/src/log.c \
         ${WORKDIR}/src/lora.c \
         ${WORKDIR}/src/rs485.c \
+        ${WORKDIR}/src/serial.c \
         -o ${S}/telemetry -lgpiod
 }
 

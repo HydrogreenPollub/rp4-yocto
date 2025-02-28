@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 int main(int argc, char **argv) {
@@ -21,6 +22,10 @@ int main(int argc, char **argv) {
     can_connect();
 
     log_write("DAEMON: Started successfully\n");
+
+    // TODO remove lora test
+    char *test = "Testing lora transmission\r";
+    lora_send(test, strlen(test));
 
     while(1) {
         char can_buffer[8] = { 0 };
