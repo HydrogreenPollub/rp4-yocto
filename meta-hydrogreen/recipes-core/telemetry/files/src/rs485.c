@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <gpiod.h>
 
-#define EN_RS485 4
+const int EN_RS485[] = { 4 };
 
 int rs485_connect() {
     struct gpiod_chip *chip = gpiod_chip_open("/dev/gpiochip0");

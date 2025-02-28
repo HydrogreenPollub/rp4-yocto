@@ -8,7 +8,6 @@
 
 #include <fcntl.h>
 #include <errno.h>
-#include <termios.h>
 #include <unistd.h>
 
 #define LORA_DEVICE "/dev/ttyS0"

@@ -1,10 +1,12 @@
 #include "serial.h"
 #include "log.h"
 
-#include <fcntl.h>
+#include <asm/termbits.h>
 #include <errno.h>
-#include <termios.h>
+#include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
+#include <sys/ioctl.h>
 
 int serial_get_device(char *device_file, int baudrate) {
     // Maybe add flags as an argument to function
@@ -14,7 +16,7 @@ int serial_get_device(char *device_file, int baudrate) {
         return -1;
     }
     
-    struct termios tty;
+    struct termios2 tty;
 
     // Get current config
     if(tcgetattr(device, &tty) != 0) {
@@ -50,8 +52,8 @@ int serial_get_device(char *device_file, int baudrate) {
     tty.c_ospeed = baudrate;
 
     // Save changes
-    tcflush(lora_port, TCIOFLUSH);
-    if(tcsetattr(lora_port, TCSANOW, &tty) != 0) {
+    tcflush(device, TCIOFLUSH);
+    if(tcsetattr(device, TCSANOW, &tty) != 0) {
         log_write("SERIAL: Error %i from tcsetattr: %s\n", errno, strerror(errno));
         return -1;
     }
