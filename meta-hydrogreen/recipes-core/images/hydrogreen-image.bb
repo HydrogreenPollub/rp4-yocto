@@ -4,6 +4,10 @@ LICENSE = "MIT"
 COMPATIBLE_MACHINE = "^rpi$"
 
 # TODO check if gpiod works and if it does, use it for rs485 setup
+# TODO remove wpa_supplicant, since we aren't using wifi
+# TODO remove bluetoothd, since we aren't using it
+# TODO figure out why static IP isn't being applied
+
 IMAGE_INSTALL:append = " packagegroup-hydrogreen"
 IMAGE_FEATURES:remove = "package-management splash"
 
