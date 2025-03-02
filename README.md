@@ -16,3 +16,10 @@ sudo bmaptool copy tmp/deploy/images/raspberrypi4-64/hydrogreen-image-raspberryp
 ### PROJECT OVERVIEW
 The goal of the project is to collect vehicle data via `can` and `rs485`.
 After that we send the data to the base station via `lora`. This is done using a `daemon` called `telemetry`.
+
+### DOCUMENTATION
+The project documentation is written in `Markdown` and can be viewed using `mkdocs` with the following commands:
+``` bash
+pip install mkdocs
+mkdocs serve
+```
