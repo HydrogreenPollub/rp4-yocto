@@ -30,6 +30,9 @@ int main(int argc, char **argv) {
 
     char can_buffer[8];
 
+    // TODO add flatbuffer to store information and send it via lora periodically.
+    // TODO make app multithreaded. One thread for collecting data, one for sending every 1s via lora and one for saving locally.
+
     while(1) {
         int bytes_read = can_receive(can_buffer);
 
