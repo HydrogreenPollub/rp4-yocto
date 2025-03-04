@@ -18,21 +18,24 @@ int main(int argc, char **argv) {
     }
 
     log_init();
-    lora_connect();
+
+    if (lora_connect() == EXIT_FAILURE) {
+        log_write("DAEMON: Failed to start due to LORA\n");
+        return EXIT_FAILURE;
+    }
+    
     can_connect();
 
     log_write("DAEMON: Started successfully\n");
 
-    // TODO remove lora test
-    char *test = "Testing lora transmission\r";
-    lora_send(test, strlen(test));
+    char can_buffer[8];
 
     while(1) {
-        char can_buffer[8] = { 0 };
-        can_receive(can_buffer);
+        int bytes_read = can_receive(can_buffer);
 
-        // TODO add \r to message
-        lora_send(can_buffer, 8);
+        if (bytes_read > 0) {
+            lora_send(can_buffer, 8);
+        }
         sleep(1);
     }
 

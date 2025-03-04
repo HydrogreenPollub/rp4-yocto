@@ -30,6 +30,7 @@ INITSCRIPT_NAME = "telemetry"
 # Avoid referencing TMPDIR
 CFLAGS += "-fdebug-prefix-map=${TMPDIR}=."
 
+# TODO remove -g when done debugging
 do_compile() {
     ${CC} ${CFLAGS} ${LDFLAGS} \
         ${WORKDIR}/src/main.c \
@@ -38,7 +39,7 @@ do_compile() {
         ${WORKDIR}/src/lora.c \
         ${WORKDIR}/src/rs485.c \
         ${WORKDIR}/src/serial.c \
-        -o ${S}/telemetry -lgpiod
+        -o ${S}/telemetry -lgpiod -g
 }
 
 do_install() {

@@ -36,9 +36,19 @@ int log_write(const char *fmt, ...) {
     va_list args;
 
     va_start(args, fmt);
-    vfprintf(log_file, fmt, args);
+
+    if (vfprintf(log_file, fmt, args) < 0) {
+        perror("Failed to write to log file");
+        va_end(args);
+        return EXIT_FAILURE;
+    }
+
     va_end(args);
 
-    fflush(log_file);
+    if (fflush(log_file) != 0) {
+        perror("Failed to flush log file");
+        return EXIT_FAILURE;
+    }
+
     return EXIT_SUCCESS;
 }

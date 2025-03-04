@@ -9,14 +9,14 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
+#include <termios.h>
 
 #define LORA_DEVICE "/dev/ttyS0"
 
 static int lora_port = -1;
 
-// TODO extract serial related logic to a separate file in order to reuse it for the GPS
 int lora_connect() {
-    lora_port = serial_get_device(LORA_DEVICE, 9600);
+    lora_port = serial_get_device(LORA_DEVICE, B9600);
 
     if (lora_port < 0) {
         log_write("LORA: Error %i from serial_get_device: %s\n", errno, strerror(errno));
