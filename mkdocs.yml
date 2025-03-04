@@ -2,8 +2,10 @@ site_name: Yocto Hydrogreen
 nav:
   - Project Details:
     - Overview: overview.md
+    - Telemetry: telemetry.md
+    - Hardware: hardware.md
   - Implementation Details:
     - Recipes:
-      - Telemetry Daemon: telemetry.md
-      - Init IfUpDown: init-ifupdown.md
+      - Telemetry Daemon: recipes/telemetry.md
+      - Init IfUpDown: recipes/init-ifupdown.md
 theme: readthedocs
