@@ -6,6 +6,7 @@ nav:
     - Hardware: hardware.md
   - Implementation Details:
     - Recipes:
-      - Telemetry Daemon: recipes/telemetry.md
+      - Telemetry: recipes/telemetry.md
+      - Telemetry Init: recipes/telemetry-init.md
       - Init IfUpDown: recipes/init-ifupdown.md
 theme: readthedocs
