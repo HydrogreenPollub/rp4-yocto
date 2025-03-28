@@ -1,11 +1,11 @@
 # Overview
-This project is a `Linux` distribution designed for the `raspberry pi 4` board using the `Yocto` build system.
+This goal of this project is to create a `Linux` distribution designed for the `raspberry pi 4` board using the `Yocto` build system.
 
 # Requirements
 The system will serve two distinct tasks. It will act as a vehicle telemetry module, as well as, a body controller. In the following section, we will discuss the responsibilities in greater detail.
 
 - ### Telemetry
-The goal of the telemetry is to collect data from the vehicle and send it to a base station.
+The goal of the telemetry is to collect data from the vehicle, serialize it and send it to a base station.
 The functioning of the base station is outside the scope of this project.
 All we need to know about it, is that it collects the data we send it and processes it
 in a way which makes it useful for analytics purposes.

@@ -4,9 +4,9 @@ nav:
     - Overview: overview.md
     - Telemetry: telemetry.md
     - Hardware: hardware.md
-  - Implementation Details:
-    - Recipes:
-      - Telemetry: recipes/telemetry.md
-      - Telemetry Init: recipes/telemetry-init.md
-      - Init IfUpDown: recipes/init-ifupdown.md
+  - Recipes: 
+    - Overview: recipes/overview.md
+    - Telemetry: recipes/telemetry.md
+    - Telemetry Init: recipes/telemetry-init.md
+    - Init IfUpDown: recipes/init-ifupdown.md
 theme: readthedocs

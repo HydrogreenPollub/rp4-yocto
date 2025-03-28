@@ -10,4 +10,4 @@ The threads can be split into two main groups:
     - `CAN`
     - `RS485`
     - `GPS usb-cdc`
-* **Output** - Take the data from thread safe memory and either send it to a base station via `lora` or save it locally to non-volatile memory, such as a `sim` card.  
+* **Output** - Take the data from thread safe memory, serialize it to a flatbuffer and either send it to a base station via `lora` or save it locally to non-volatile memory, such as a `sim` card.  
