@@ -8,9 +8,11 @@ COMPATIBLE_MACHINE = "^rpi$"
 # TODO remove bluetoothd, since we aren't using it
 # TODO figure out why static IP isn't being applied
 # TODO remove gdb once done with debugging
+# TODO find a way to include debugging symbols in build
 # TODO use cmdline.txt to remove lora from tty list (to not send garbage on boot)
+# TODO remove canutils and lora recipes once done with prototyping
 
-IMAGE_INSTALL:append = " packagegroup-hydrogreen gdb"
+IMAGE_INSTALL:append = " packagegroup-hydrogreen"
 IMAGE_FEATURES:remove = "package-management splash"
 
 inherit core-image

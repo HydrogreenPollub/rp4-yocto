@@ -10,9 +10,7 @@ RDEPENDS:${PN} = "\
     can-utils \
     dropbear \
     libgpiod \
-    lora \
     packagegroup-rpi-test \
-    rust-demo \
     screen \
     telemetry \
     telemetry-init \

@@ -14,6 +14,9 @@ RDEPENDS_${PN} += "libgpiod"
 
 inherit cmake
 
+# Enable debug symbols
+TARGET_CFLAGS += "-g"
+
 do_install() {
     # Install the executable
     install -d ${D}${bindir}
