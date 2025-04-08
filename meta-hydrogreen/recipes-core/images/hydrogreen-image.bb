@@ -13,6 +13,7 @@ COMPATIBLE_MACHINE = "^rpi$"
 # TODO remove canutils and lora recipes once done with prototyping
 
 IMAGE_INSTALL:append = " packagegroup-hydrogreen"
+IMAGE_FEATURES:append = " x11-base"
 IMAGE_FEATURES:remove = "package-management splash"
 
 inherit core-image
