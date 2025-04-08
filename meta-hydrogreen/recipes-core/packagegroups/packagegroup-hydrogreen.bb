@@ -14,4 +14,6 @@ RDEPENDS:${PN} = "\
     screen \
     telemetry \
     telemetry-init \
+    mpv \
+    v4l-utils \
 "
