@@ -21,7 +21,7 @@ start() {
         exit 1
     fi
 
-    $DAEMON_PATH &
+    $DAEMON_PATH >> /var/log/telemetry.log 2>&1 &
 
     echo $! > "$PIDFILE"
     echo "$DAEMON_NAME started."

@@ -3,7 +3,7 @@ DESCRIPTION = "Application to monitor the vehicle state and transmit the data to
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-SRC_URI = "git://github.com/HydrogreenPollub/rp4-telemetry.git;branch=main;protocol=https"
+SRC_URI = "gitsm://github.com/HydrogreenPollub/rp4-telemetry.git;protocol=https;branch=main"
 SRCREV = "${AUTOREV}"
 PV = "1.0+git"
 
