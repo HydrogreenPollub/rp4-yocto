@@ -3,14 +3,13 @@ SUMMARY = "A custom image for rp-4"
 LICENSE = "MIT"
 COMPATIBLE_MACHINE = "^rpi$"
 
-# TODO check if gpiod works and if it does, use it for rs485 setup
 # TODO remove wpa_supplicant, since we aren't using wifi
 # TODO remove bluetoothd, since we aren't using it
 # TODO figure out why static IP isn't being applied
 # TODO remove gdb once done with debugging
-# TODO find a way to include debugging symbols in build
 # TODO use cmdline.txt to remove lora from tty list (to not send garbage on boot)
 # TODO remove canutils and lora recipes once done with prototyping
+# TODO set device file names statically using udev
 
 IMAGE_INSTALL:append = " packagegroup-hydrogreen"
 IMAGE_FEATURES:append = " x11-base"

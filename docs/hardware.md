@@ -14,5 +14,5 @@ The other peripherals are plugged into the **pi** via **USB**. Those peripherals
 
 # Manufacturer documentation
 - [sb-components LoRa HAT](https://learn.sb-components.co.uk/LoRa-HAT-for-Raspberry-Pi)
-- [Waveshare RS485 CAN HAT](https://www.waveshare.com/wiki/RS485_CAN_HAT)
+- [Waveshare RS485 CAN HAT (B)](https://www.waveshare.com/wiki/RS485_CAN_HAT_(B))
 - [Waveshare 7" HDMI LCD](https://www.waveshare.com/wiki/7inch_HDMI_LCD_(C))
