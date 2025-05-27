@@ -12,7 +12,7 @@ COMPATIBLE_MACHINE = "^rpi$"
 # TODO set device file names statically using udev
 
 IMAGE_INSTALL:append = " packagegroup-hydrogreen"
-IMAGE_FEATURES:append = " x11-base"
+IMAGE_FEATURES:append = " x11-base allow-root-login"
 IMAGE_FEATURES:remove = "package-management splash"
 
 inherit core-image
