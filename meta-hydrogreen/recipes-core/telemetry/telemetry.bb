@@ -9,8 +9,14 @@ PV = "1.0+git"
 
 S = "${WORKDIR}/git"
 
-DEPENDS += " libgpiod boost"
-RDEPENDS_${PN} += "libgpiod boost"
+DEPENDS += " \
+    libgpiod \
+    capnproto (= 1.1.0) \
+    boost"
+RDEPENDS_${PN} += " \
+    libgpiod \
+    capnproto (= 1.1.0) \
+    boost"
 
 inherit cmake
 
