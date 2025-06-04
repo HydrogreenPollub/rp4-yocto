@@ -16,5 +16,6 @@ RDEPENDS:${PN} = "\
     telemetry-init \
     mpv \
     v4l-utils \
+    ifplugd \
     udev-rules \
 "
