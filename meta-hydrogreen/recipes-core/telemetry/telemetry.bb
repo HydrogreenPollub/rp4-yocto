@@ -10,11 +10,11 @@ PV = "1.0+git"
 S = "${WORKDIR}/git"
 
 DEPENDS += " \
-    libgpiod \
+    libgpiod (= 2.1.2) \
     capnproto (= 1.1.0) \
     boost"
 RDEPENDS_${PN} += " \
-    libgpiod \
+    libgpiod (= 2.1.2) \
     capnproto (= 1.1.0) \
     boost"
 
