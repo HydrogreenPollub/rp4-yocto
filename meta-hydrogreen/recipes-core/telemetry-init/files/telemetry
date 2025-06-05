@@ -21,7 +21,7 @@ start() {
         exit 1
     fi
 
-    TIMEOUT=4
+    TIMEOUT=10
     echo "Waiting for LORA to be ready..."
     while [ ! -e "/dev/ttyS0" ] && [ $TIMEOUT -gt 0 ]; do
         sleep 1
