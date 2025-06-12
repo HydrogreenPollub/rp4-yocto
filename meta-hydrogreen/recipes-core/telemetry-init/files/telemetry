@@ -13,6 +13,10 @@ DAEMON_NAME="telemetry"
 DAEMON_PATH="/usr/bin/$DAEMON_NAME"
 PIDFILE="/var/run/$DAEMON_NAME.pid"
 
+HOME_DIR=$(getent passwd $(logname) | cut -d: -f6)
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+LOGFILE="$HOME_DIR/telemetry_$TIMESTAMP.log"
+
 start() {
     echo "Starting $DAEMON_NAME..."
 
@@ -33,7 +37,7 @@ start() {
         exit 1
     fi
 
-    $DAEMON_PATH >> /var/log/telemetry.log 2>&1 &
+    $DAEMON_PATH >> "$LOGFILE" 2>&1 &
 
     echo $! > "$PIDFILE"
     echo "$DAEMON_NAME started."
