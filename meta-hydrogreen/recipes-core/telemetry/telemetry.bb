@@ -22,6 +22,7 @@ inherit cmake
 
 # Enable debug symbols
 TARGET_CFLAGS += "-g"
+# EXTRA_OECMAKE="-DCONFIG_GPS_9600=1" # Defines which GPS we're using
 
 do_install() {
     # Install the executable

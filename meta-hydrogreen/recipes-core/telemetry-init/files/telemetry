@@ -14,7 +14,7 @@ DAEMON_PATH="/usr/bin/$DAEMON_NAME"
 PIDFILE="/var/run/$DAEMON_NAME.pid"
 
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-LOGFILE="/home/root/telemetry_$TIMESTAMP.log"
+LOGFILE="/home/root/log/telemetry_$TIMESTAMP.log"
 
 start() {
     echo "Starting $DAEMON_NAME..."
