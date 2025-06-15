@@ -5,7 +5,6 @@ COMPATIBLE_MACHINE = "^rpi$"
 
 # TODO remove wpa_supplicant, since we aren't using wifi
 # TODO remove bluetoothd, since we aren't using it
-# TODO use cmdline.txt to remove lora from tty list (to not send garbage on boot)
 # TODO remove canutils and lora recipes once done with prototyping
 # TODO set device file names statically using udev
 
