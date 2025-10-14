@@ -1,0 +1,29 @@
+\clearpage
+\section{Linux}
+
+There are various distros that are well suited for a RaspberryPI embedded
+system.
+
+\begin{itemize}
+    \item[Raspbian]
+\end{itemize}
+
+For better control we went with a custom distribution. The choice we had for
+the tools to build it are:
+\begin{itemize}
+    \item[]
+          {\large\textbf{From scratch}}\\
+          Building a custom linux distribution from scratch is a possibility. It gives the developer complete control over his system.
+          However for this project that control will not be required. Instead it would add unnecessary complexity.
+
+          For interested readers I can recommend the Linux From Scratch project.
+    \item[]
+          {\large\textbf{Buildroot}}\\
+          This option is one of the most popular on the market. It is often viewed as the simplest one.
+          What makes it not suitable for this project is the structure of the config file being inherently unordered.
+          Another factor in my decision was the documentation being very difficult to read both due to its style and presentation.
+    \item[]
+          {\large\textbf{Yocto}}\\
+          While this option is definitely more complex than buildroot it features much better documentation, as well as a thriving community
+          that makes development much easier.
+\end{itemize}
