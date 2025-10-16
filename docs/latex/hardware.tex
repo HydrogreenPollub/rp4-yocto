@@ -1,12 +1,11 @@
 \clearpage
 \section{Hardware}
 
-For convenience we decided to go with a linux based system.
-
-Main processor:
+\large\textbf{Main board}\\
+There are multiple options for the main board. In the following section I will give a short overview of each option and provide reasoning behind my final choice.
 \begin{itemize}
     \item[]
-          {\large\textbf{Custom Single Board Computer}}\\
+          \large\textbf{Custom Single Board Computer}\\
           Developing a custom linux based system would be the best solution for a large scale project.
           It would give us full control over the system hardware. Let us integrate the used peripherals into the same board and if we
           produced several thousands of units it would be the most profitable option.
@@ -23,14 +22,14 @@ Main processor:
           an opensource project focused on this matter.
 
     \item[]
-          {\large\textbf{Beaglebone Black}}\\
+          \large\textbf{Beaglebone Black}\\
           This board is a popular option for both hobbyist and industry specialists.
 
           While it is a very powerful option its downsides are that its expensive and
           lacks a hobbyist oriented community.
 
     \item[]
-          {\large\textbf{RaspberryPI}}\\
+          \large\textbf{RaspberryPI}\\
           This series of boards features a wide range of hardware, which lets us choose the best option for our needs.
           The board that we settled on is the RaspberryPI 4b.
 
@@ -39,4 +38,20 @@ Main processor:
 
           It also features many already built hardware modules which let us extend the
           capability greatly. We will use such modules in this project.
+\end{itemize}
+
+\large\textbf{Modules}\\
+As mentioned we will take advantage of multiple ready-made RaspberryPI modules available on the market.
+
+\begin{itemize}
+    \item[]
+          \large\textbf{sb-components LoRa HAT}
+          This module provides us with a simple way to transmit data over LoRa. This is how we send our gathered information to the base station.
+    \item[]
+          \large\textbf{Waveshare RS485 CAN HAT (B)}
+          This module lets us use both CAN and RS485, which is necessary for communicating with the other electrical components of the vehicle.
+    \item[]
+          \large\textbf{GPS GU-502GGB}
+          This module lets us receive NMEA packets via GPS. Such packets let us know our coordinates, speed and even the current time.
+          This data is crucial for analyzing a race. It lets us optimize our fuel usage down to each corner.
 \end{itemize}
