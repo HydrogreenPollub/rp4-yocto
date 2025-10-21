@@ -1,25 +1,25 @@
 \clearpage
 \section{Hardware}
 
+TODO give literature for these Technologies
+
 \large\textbf{Main board}\\
-There are multiple options for the main board. In the following section I will give a short overview of each option and provide reasoning behind my final choice.
+There are multiple options for the main board. The following section will serve as a short overview of each option and provide reasoning behind the final choice.
 \begin{itemize}
     \item[]
           \large\textbf{Custom Single Board Computer}\\
-          Developing a custom linux based system would be the best solution for a large scale project.
-          It would give us full control over the system hardware. Let us integrate the used peripherals into the same board and if we
-          produced several thousands of units it would be the most profitable option.
+          Developing a custom linux based system is the best solution for a large scale project.
+          It gives the developer team full control over the system hardware. It also allows for much smaller designs by integrating the used peripherals into the same board.
+          It also maximizes the profits for mass manufacturing.
 
-          In our particular case however we will only manufacture 2-3 units, so the
-          biggest advantages of a custom system simply don't apply for us.
+          In the case of small projects such as this one the benefits of mass production
+          don't apply, so it would actually be more expensive.
 
-          The difficulty involved in developing such a system would slow development due
-          to lack of modules as well as the increased complexity.
+          The difficulty involved in developing such a system could prove too substantial
+          for small teams due to lack of modules as well as the increased complexity
+          involved in custom hardware.
 
-          That is why we decided against this solution.
-
-          For readers interested in the topic i can recommend the blueberry pi, which is
-          an opensource project focused on this matter.
+          That is why it is a suboptimal solution for this project.
 
     \item[]
           \large\textbf{Beaglebone Black}\\
@@ -30,28 +30,31 @@ There are multiple options for the main board. In the following section I will g
 
     \item[]
           \large\textbf{RaspberryPI}\\
-          This series of boards features a wide range of hardware, which lets us choose the best option for our needs.
-          The board that we settled on is the RaspberryPI 4b.
+          This series of boards features a wide range of possible hardware. This provides the user with a wide range of possible system peripherals.
+          This project uses a RaspberryPI 4b.
+
+          TODO energy comparison
 
           It has a great community of both hobbyists and professionals around it, which
           makes development much simpler.
 
-          It also features many already built hardware modules which let us extend the
-          capability greatly. We will use such modules in this project.
+          It also features many already built hardware modules which makes it possible to
+          extend the capability of the board with additional peripherals. Such modules
+          will be used throughout this project.
 \end{itemize}
 
 \large\textbf{Modules}\\
-As mentioned we will take advantage of multiple ready-made RaspberryPI modules available on the market.
+As mentioned this project takes advantage of multiple ready-made RaspberryPI modules available on the market.
 
 \begin{itemize}
     \item[]
-          \large\textbf{sb-components LoRa HAT}
-          This module provides us with a simple way to transmit data over LoRa. This is how we send our gathered information to the base station.
+          \large\textbf{sb-components LoRa HAT}\\
+          This module provides a simple way to transmit data over LoRa. This is how information is sent to the base station.
     \item[]
-          \large\textbf{Waveshare RS485 CAN HAT (B)}
-          This module lets us use both CAN and RS485, which is necessary for communicating with the other electrical components of the vehicle.
+          \large\textbf{Waveshare RS485 CAN HAT (B)}\\
+          This module provides both CAN and RS485 interfaces, which are necessary for communicating with the electrical components of the vehicle.
     \item[]
-          \large\textbf{GPS GU-502GGB}
-          This module lets us receive NMEA packets via GPS. Such packets let us know our coordinates, speed and even the current time.
-          This data is crucial for analyzing a race. It lets us optimize our fuel usage down to each corner.
+          \large\textbf{GPS GU-502GGB}\\
+          This module receives NMEA packets via GPS. Such packets contain geographic coordinates, speed and even the current time.
+          This data is crucial for analyzing a race. It lets the racing team optimize fuel usage throughout the track.
 \end{itemize}
