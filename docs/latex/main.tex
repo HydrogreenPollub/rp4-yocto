@@ -1,16 +1,24 @@
 \documentclass{article}
 
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}    
+\usepackage{mk-preamble}
+\addbibresource{bibliography.bib}
 
 \begin{document}
 
 \input{title_page}
+%TODO summary
 \input{introduction}
+%TODO extent of work and goals
 \input{market_analysis}
 \input{hardware}
 \input{linux}
 \input{technologies}
-\input{literature}
+%TODO conclusions
+%\input{literature}
+
+%TODO cite advanced-linux-programming in code explanation section
+
+\clearpage
+\printbibliography[title={Literature}]
 
 \end{document}
