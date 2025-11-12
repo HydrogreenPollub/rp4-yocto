@@ -37,21 +37,19 @@ TODO
 
 In order to have better control over the hardware this project uses a custom
 distribution. The most common ways of building such distributions are:
-\begin{itemize}
-    \item[]
-          \large\textbf{From scratch}\\
-          Building a custom linux distribution from scratch is a possibility. It gives the developer complete control over his system.
-          It is also a great way to gain insight on the inner workings of Linux.~\cite{linux-from-scratch}
 
-          However for this project that control will not be required. Instead it would
-          add unnecessary complexity.
-    \item[]
-          \large\textbf{Buildroot}\\
-          This option is one of the most popular on the market. It is often viewed as the simplest one.
-          What makes it not suitable for this project is the structure of the config file being inherently unordered.
-          Another factor is the documentation being very difficult to read both due to its style and presentation.
-    \item[]
-          \large\textbf{Yocto}\\
-          While this option is definitely more complex than buildroot it features much better documentation, as well as a thriving community
-          that makes development much easier.
-\end{itemize}
+\subsubsection{From scratch}
+Building a custom linux distribution from scratch is a possibility. It gives the developer complete control over his system.
+It is also a great way to gain insight on the inner workings of Linux.~\cite{linux-from-scratch}
+
+However for this project that control will not be required. Instead it would
+add unnecessary complexity.
+
+\subsubsection{Buildroot}
+This option is one of the most popular on the market. It is often viewed as the simplest one.
+What makes it not suitable for this project is the structure of the config file being inherently unordered.
+Another factor is the documentation being very difficult to read both due to its style and presentation.
+
+\subsubsection{Yocto}
+While this option is definitely more complex than \verb|buildroot| it features much better documentation, as well as a thriving community
+that makes development much easier.
