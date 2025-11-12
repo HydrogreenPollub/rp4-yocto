@@ -1,0 +1,92 @@
+\clearpage
+\section{Implementation}
+
+\subsection{Base System}
+
+\subsubsection{Networking}
+
+The system has a static address ethernet port, as well as a \verb|CAN| network interface.\\
+
+On a modern system this configuration is usually done either using \verb|systemd-networkd| or \verb|NetworkManager|.
+These tools are very powerful and user-friendly, but unnecessarily large for embedded applications.\\
+
+This system uses a light-weight legacy method. It's configured using \verb|ifup/ifdown| via \verb|/etc/network/interfaces| file.
+
+\begin{lstlisting}
+# Loopback
+auto lo
+iface lo inet loopback
+
+# Static IP address
+allow-hotplug eth0
+iface eth0 inet static
+    address 192.168.1.100
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+
+# CAN configuration
+auto can0
+iface can0 inet manual
+    pre-up ip link set can0 type can bitrate 500000 restart-ms 100
+    up ip link set can0 up
+    down ip link set can0 down
+\end{lstlisting}
+
+For debugging purposes the system allows connecting over \verb|SSH|.
+It uses \verb|Dropbear|, a minimal \verb|SSH Server|.\\
+
+The interface has a static address of \verb|192.168.1.100 /24|.
+To make the interface hotpluggable \verb|ifplugd| was used with the following config file.
+
+\begin{lstlisting}
+INTERFACES="eth0"
+HOTPLUG_INTERFACES="eth0"
+ARGS="-q -f -u0 -d10 -w -I"
+SUSPEND_ACTION="stop"
+\end{lstlisting}
+
+\clearpage
+In order to use this custom configuration file it was necessary to append to the original recipe with a \verb|ifplugd_%.bbappend| file.
+\begin{lstlisting}
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
+SRC_URI += "file://ifplugd"
+
+do_install:append() {
+    install -d ${D}${sysconfdir}/default
+    install -m 0644 ${WORKDIR}/ifplugd ${D}${sysconfdir}/default/ifplugd
+}
+
+FILES:${PN} += "${sysconfdir}/default/ifplugd"
+\end{lstlisting}
+
+\subsection{Telemetry Application}
+
+\subsubsection{Project Structure}
+The simplified folder structure of the application looks like the following:
+% TODO make this diagram more informative
+\begin{center}
+    \begin{plantuml}
+        @startmindmap
+        * rp4-telemetry
+        ** build
+        ** src
+        *** threads
+        ****_ can.cpp / .hpp
+        ****_ csv.cpp / .hpp
+        ****_ gps.cpp / .hpp
+        ****_ lora.cpp / .hpp
+        ****_ rs485.cpp / .hpp
+        *** utils
+        **** can_ids
+        **** capnp-proto
+        **** minmea
+        **** rs485_parser
+        **** rtc_watchdog
+        ****_ data.cpp / .hpp
+        ***_ main.cpp
+        **_ CMakeLists.txt
+        **_ README.md
+        @endmindmap
+    \end{plantuml}
+\end{center}

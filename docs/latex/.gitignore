@@ -8,3 +8,7 @@
 *.out
 *.toc
 *.run.xml
+*.pytxcode
+*-plantuml.latex
+*-plantuml.tex
+*-plantuml.txt
