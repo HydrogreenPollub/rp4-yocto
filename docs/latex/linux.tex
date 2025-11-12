@@ -1,29 +1,39 @@
 \clearpage
 \section{Linux}
 
-Initially using a linux based system for a race telemetry application might seem excessive. It however provides several benefits that make it superior to bare-metal.
+\subsection{Reasoning behind using Linux}
+Initially using a linux based system for a race telemetry application might seem excessive.
+It however provides several benefits that make it superior to bare-metal.\\
 
-Using linux provides a filesystem as well as a user environment that makes it easy to develop and debug the application.
+Using linux provides a filesystem as well as a user environment
+that makes it easy to develop and debug the application.\\
 
-Another large advantage of using linux instead of bare-metal is the built-in support for a large selection of hardware.
-It means that development efforts can be focused on the high level logic instead of low level protocol details.~\cite{jay-carlson-embedded-linux}
+Another large advantage of using linux instead of bare-metal
+is the built-in support for a large selection of hardware.
+It means that development efforts can be focused on the high level logic
+instead of low level protocol details.~\cite{jay-carlson-embedded-linux}
 
-There are various linux distributions that are well suited for a RaspberryPI
+\subsection{Distributions}
+There are various linux distributions that are well suited for a \verb|RaspberryPI|
 embedded system.
 
 %TODO write a bit about each system
-\begin{itemize}
-    \item[]
-          \large\textbf{Raspbian}\\
-    \item[]
-          \large\textbf{Ubuntu Code}\\
-    \item[]
-          \large\textbf{Debian}\\
-    \item[]
-          \large\textbf{OpenWrt}\\
-    \item[]
-          \large\textbf{DietPI}\\
-\end{itemize}
+\subsubsection{Debian}
+\verb|Debian| is known for being stable and secure.\\
+
+It is the basis for many popular distributions, such as \verb|Ubuntu|, \verb|Tails| and many others.~\cite{reasons-to-use-debian}
+
+\subsubsection{RasperryPI OS}
+Based on debian it is optimized for the \verb|RaspberryPI|.
+
+\subsubsection{Ubuntu Code}
+TODO
+\subsubsection{OpenWrt}
+TODO
+\subsubsection{DietPI}
+TODO
+
+\subsection{Creating custom distributions}
 
 In order to have better control over the hardware this project uses a custom
 distribution. The most common ways of building such distributions are:

@@ -3,25 +3,36 @@
 
 There are existing solutions for race telemetry.
 
-TODO give literature for reasoning
+% TODO give literature for reasoning
 
-Some examples include:
-\begin{itemize}
-    \item[]
-          {\large\textbf{MoTeC}}\\
-          Industry standard used by racing teams
+\subsection{MoTeC}
+\verb|MoTeC| is a child company of \verb|Bosch| and it it specializes in high-end motorsport electonics.\\
 
-    \item[]
-          {\large\textbf{AIM Technologies}}\\
-          More popular with amateur teams
+Their solutions are widely considered to be the industry standard used by professional racing teams.\\
 
-    \item[]
-          {\large\textbf{RaceCapture (by Autosport Labs)}}\\
-          This option is an open source project.
-\end{itemize}
+They offer \verb|Engine Control Units (ECUs)| with built-in telemetry features,
+such as their \verb|M150| unit shown in Figure~\ref{fig:motec-m150}.
 
-However all of these systems are very expensive and none of them fit the needs
-of a hydrogen vehicle.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/motec_m150.jpeg}\par
+    \caption{M150 ECU produced by MoTeC}
+    \label{fig:motec-m150}
+\end{figure}
+
+They also produce dedicated data loggers, such as the \verb|L120| logger.
+% TODO show other product and cite website
+
+\subsection{AIM Technologies}
+More popular with amateur teams
+
+\subsection{RaceCapture (by Autosport Labs)}
+
+This option is an open source project.
+
+\subsection{Analysis Conclusions}
+
+None of the existing solutions fit specific the needs of a hydrogen vehicle.
 
 One of the multiple issues with using an existing system designed for a
 commercially available vehicle is that such vehicles are standardized to use

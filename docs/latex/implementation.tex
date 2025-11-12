@@ -3,6 +3,13 @@
 
 \subsection{Base System}
 
+\subsubsection{Peripherals}
+The system uses several peripherals that require additional hardware configuration.
+
+% TODO rpi-config
+% TODO that one overlay
+% TODO disabling logs
+
 \subsubsection{Networking}
 
 The system has a static address ethernet port, as well as a \verb|CAN| network interface.\\
@@ -45,7 +52,6 @@ ARGS="-q -f -u0 -d10 -w -I"
 SUSPEND_ACTION="stop"
 \end{lstlisting}
 
-\clearpage
 In order to use this custom configuration file it was necessary to append to the original recipe with a \verb|ifplugd_%.bbappend| file.
 \begin{lstlisting}
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
@@ -60,11 +66,56 @@ do_install:append() {
 FILES:${PN} += "${sysconfdir}/default/ifplugd"
 \end{lstlisting}
 
+% TODO describe adding password to user for SSH server
+
+\subsubsection{Libraries}
+% TODO libgpiod
+% TODO capnproto
+% TODO x11
+
 \subsection{Telemetry Application}
+
+\subsubsection{Overview}
+% TODO describe the application
+\begin{center}
+    \begin{plantuml}
+        @startuml
+        component "Telemetry Application" as App
+
+        ' Peripherals
+        component CAN
+        component "GPS Module" as GPS
+        component RS485
+
+        ' Outputs
+        component CSV
+        component "Base Station" as Station
+
+        ' Inputs to the application
+        CAN --> App
+        GPS --> App
+        RS485 --> App
+
+        ' Output from the application
+        App --> CSV
+        App --> Station : LoRa
+
+        note right of App
+        Collects data from peripherals,
+        periodically sends readings
+        to base station via LoRa.
+        Also saves readings to
+        a local CSV file.
+        end note
+
+        @enduml
+    \end{plantuml}
+\end{center}
 
 \subsubsection{Project Structure}
 The simplified folder structure of the application looks like the following:
 % TODO make this diagram more informative
+% TODO instead of this, render the images in build.sh
 \begin{center}
     \begin{plantuml}
         @startmindmap
@@ -90,3 +141,5 @@ The simplified folder structure of the application looks like the following:
         @endmindmap
     \end{plantuml}
 \end{center}
+
+\subsubsection{Peripherals}

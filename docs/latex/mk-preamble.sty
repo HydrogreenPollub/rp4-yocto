@@ -19,6 +19,29 @@
 \usepackage{adjustbox}
 \usepackage{plantuml}
 
+\NewDocumentCommand{\includeplantuml}{m}{
+    \directlua{
+        local jobname=\luastring{#1}
+        local plantUmlMode=\luastring{\PlantUmlMode}
+        local plantUmlSourceFilename = jobname .. "-plantuml.txt"
+        infile = io.open(jobname, "r")
+        instr = infile:read("*a")
+        infile:close()
+        outfile = io.open(plantUmlSourceFilename, "w")
+        outfile:write(instr)
+        outfile:close()
+        require("plantuml.lua")
+        convertPlantUmlToTikz(jobname, plantUmlMode)
+    }
+    \ifthenelse{\equal{\PlantUmlMode}{latex}}{
+        \begin{adjustbox}{max width=\linewidth}
+            \input{#1-plantuml.latex}
+        \end{adjustbox}
+    }{
+        \includegraphics[width=\maxwidth{\textwidth}]{#1-plantuml.\PlantUmlMode}
+    }
+}
+
 \usepackage{listings}
 \usepackage{xcolor}
 
@@ -43,3 +66,5 @@
     captionpos=b,                % caption below code
     keepspaces=true
 }
+
+\usepackage{hypcap}

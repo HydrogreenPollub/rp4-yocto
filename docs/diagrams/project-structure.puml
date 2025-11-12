@@ -1,0 +1,21 @@
+    @startmindmap
+    * rp4-telemetry
+    ** build
+    ** src
+    *** threads
+    ****_ can.cpp / .hpp
+    ****_ csv.cpp / .hpp
+    ****_ gps.cpp / .hpp
+    ****_ lora.cpp / .hpp
+    ****_ rs485.cpp / .hpp
+    *** utils
+    **** can_ids
+    **** capnp-proto
+    **** minmea
+    **** rs485_parser
+    **** rtc_watchdog
+    ****_ data.cpp / .hpp
+    ***_ main.cpp
+    **_ CMakeLists.txt
+    **_ README.md
+    @endmindmap
