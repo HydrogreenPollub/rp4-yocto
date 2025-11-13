@@ -20,21 +20,39 @@ embedded system.
 %TODO write a bit about each system
 \subsubsection{Debian}
 \verb|Debian| is known for being stable and secure.\\
-
 It is the basis for many popular distributions, such as \verb|Ubuntu|, \verb|Tails| and many others.~\cite{reasons-to-use-debian}
+% TODO write more
 
 \subsubsection{RasperryPI OS}
 Based on debian it is optimized for the \verb|RaspberryPI|.
 
-\subsubsection{Ubuntu Code}
-TODO
-\subsubsection{OpenWrt}
-TODO
+It is designed to be educational, so it contains a lot of extra software.
+For embedded applications the system often doesn't need features like graphical interfaces
+or complex text editors. Usually a \verb|tty| with \verb|vi| installed is enough.
+% TODO write more
+
 \subsubsection{DietPI}
+\verb|DietPI| is a \verb|Debian| based image designed to be as small as possible.
+% TODO write more
+
+\subsubsection{Ubuntu Core}
+\verb|Ubuntu Core| is a version of the popular \verb|Ubuntu| distribution,
+designed with embedded applications in mind.\\
+
+It is immutable, which would make any final products much more reliable.
+It works by letting the developer choose the desired packages in the form of \verb|snap| packages.
+Those packages are then installed on the final image.
+Immutability prevents the end user from changing anything important.~\cite{ubuntu-core-manual}\\
+
+One drawback of using \verb|snap| packages is that each package is separate from the others.
+This approach solves dependency version conflicts at the cost of increased disk space usage.
+In embedded systems disk space is often limited and in this case the overhead related with
+\verb|snap| packages is not acceptable.
+
+\subsubsection{OpenWrt}
 TODO
 
 \subsection{Creating custom distributions}
-
 In order to have better control over the hardware this project uses a custom
 distribution. The most common ways of building such distributions are:
 
