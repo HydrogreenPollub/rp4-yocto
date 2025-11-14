@@ -1,14 +1,44 @@
-\clearpage
-\section{Implementation}
-
 \subsection{Base System}
+The base system was built using a custom \verb|Yocto| image. It required several custom recipes to work.
+These recipes and the changes they introduce are documented in the following sections.
 
 \subsubsection{Peripherals}
 The system uses several peripherals that require additional hardware configuration.
 
-% TODO rpi-config
-% TODO that one overlay
-% TODO disabling logs
+Instead of using a conventional \verb|BIOS| the \verb|RaspberryPI| uses a file
+called \verb|/boot/firmware/config.txt|. This file is read by the \verb|GPU| before the \verb|CPU|
+initializes. This file can be used to configure hardware options, \verb|devicetree| overlays and other features.~\cite{raspberry-pi-manual}
+
+For this system the following changes to \verb|rpi-config_git.bbappend| were required for the added peripherals to work:
+\begin{lstlisting}
+# Changes to config.txt
+BOOT_DELAY = "0"
+DISABLE_SPLASH = "1"
+RPI_EXTRA_CONFIG:append = "dtoverlay=disable-dt\n"
+
+# LORA settings
+ENABLE_UART = "1"
+
+# CAN settings
+RPI_EXTRA_CONFIG:append = "\
+dtoverlay=mcp2515-can0,\
+oscillator=16000000,\
+interrupt=25,\
+,spimaxfrequency=1000000\n"
+
+# RS485 settings
+ENABLE_SPI_BUS = "1"
+RPI_EXTRA_CONFIG:append = "dtoverlay=sc16is752-spi1,int_pin=24\n"
+\end{lstlisting}
+
+An issue that arises with the \verb|LoRa| module is that it is treated as a \verb|tty| device.
+This means that it by default receives kernel logs and consequently sends them via \verb|LoRa|.
+This behavior is undesired, so it required disabling the kernel logs via \verb|rpi-cmdline.bbappend| recipe.
+\begin{lstlisting}
+CMDLINE:append = " loglevel=0"
+\end{lstlisting}
+
+This fix is suboptimal, since it disables logs for all \verb|tty|, but no better solution was found in the development process.
 
 \subsubsection{Networking}
 
@@ -66,7 +96,12 @@ do_install:append() {
 FILES:${PN} += "${sysconfdir}/default/ifplugd"
 \end{lstlisting}
 
-% TODO describe adding password to user for SSH server
+For \verb|Dropbear| to work it is required to add a password to the system.
+This was done by adding the following section to the main \verb|hydrogreen-image.bb| file:
+\begin{lstlisting}
+inherit extrausers
+EXTRA_USERS_PARAMS = "usermod -p '<HASHED_PASSWORD>' root;"
+\end{lstlisting}
 
 \subsubsection{Graphical interface}
 During the development of the project a possibility of using cameras as rear view mirrors of the vehicle was explored.
@@ -131,73 +166,3 @@ BBCLASSEXTEND = "native nativesdk"
 \end{lstlisting}
 
 This recipe clones the official \verb|capnproto| github repository and builds it from source using \verb|cmake|
-
-\subsection{Telemetry Application}
-\subsubsection{Overview}
-% TODO describe the application
-\begin{center}
-    \begin{plantuml}
-        @startuml
-        component "Telemetry Application" as App
-
-        ' Peripherals
-        component CAN
-        component "GPS Module" as GPS
-        component RS485
-
-        ' Outputs
-        component CSV
-        component "Base Station" as Station
-
-        ' Inputs to the application
-        CAN --> App
-        GPS --> App
-        RS485 --> App
-
-        ' Output from the application
-        App --> CSV
-        App --> Station : LoRa
-
-        note right of App
-        Collects data from peripherals,
-        periodically sends readings
-        to base station via LoRa.
-        Also saves readings to
-        a local CSV file.
-        end note
-
-        @enduml
-    \end{plantuml}
-\end{center}
-
-\subsubsection{Project Structure}
-The simplified folder structure of the application looks like the following:
-% TODO make this diagram more informative
-% TODO instead of this, render the images in build.sh
-\begin{center}
-    \begin{plantuml}
-        @startmindmap
-        * rp4-telemetry
-        ** build
-        ** src
-        *** threads
-        ****_ can.cpp / .hpp
-        ****_ csv.cpp / .hpp
-        ****_ gps.cpp / .hpp
-        ****_ lora.cpp / .hpp
-        ****_ rs485.cpp / .hpp
-        *** utils
-        **** can_ids
-        **** capnp-proto
-        **** minmea
-        **** rs485_parser
-        **** rtc_watchdog
-        ****_ data.cpp / .hpp
-        ***_ main.cpp
-        **_ CMakeLists.txt
-        **_ README.md
-        @endmindmap
-    \end{plantuml}
-\end{center}
-
-\subsubsection{Peripherals}

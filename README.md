@@ -29,3 +29,6 @@ The project documentation is written in `Markdown` and can be viewed using `mkdo
 pip install mkdocs
 mkdocs serve
 ```
+
+It is also documented as part of an engineering degree publication under `docs/latex/`.
+This can be built using the `build.sh` script after installing the right latex dependencies.

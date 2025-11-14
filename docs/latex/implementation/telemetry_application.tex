@@ -1,0 +1,80 @@
+\subsection{Telemetry Application}
+\subsubsection{Overview}
+The telemetry application collects data from several peripherals and does two separate things with it.
+
+Firstly it sends the data to a remote base station by \verb|LoRa|.
+That base station then sends it via \verb|MQTT| to \verb|Graphana| as well as saves it to a \verb|PostgreSQL| database.
+
+Secondly it saves the measurements locally to a \verb|CSV| file.
+This is done as a backup in case of \verb|LoRa| transmission failures.
+
+% TODO title diagram
+\begin{center}
+    \begin{plantuml}
+        @startuml
+        component "Telemetry Application" as App
+
+        ' Peripherals
+        component CAN
+        component "GPS Module" as GPS
+        component RS485
+
+        ' Outputs
+        component CSV
+        component "Base Station" as Station
+
+        ' Inputs to the application
+        CAN <-> App
+        GPS --> App
+        RS485 --> App
+
+        ' Output from the application
+        App --> CSV
+        App --> Station : LoRa
+
+        note right of App
+        Collects data from peripherals,
+        periodically sends readings
+        to base station via LoRa.
+        Also saves readings to
+        a local CSV file.
+        end note
+
+        @enduml
+    \end{plantuml}
+\end{center}
+
+\subsubsection{Project Structure}
+The simplified folder structure of the application looks like the following:
+% TODO make this diagram more informative
+% TODO instead of this, render the images in build.sh
+\begin{center}
+    \begin{plantuml}
+        @startmindmap
+        * rp4-telemetry
+        ** build
+        ** src
+        *** threads
+        ****_ can.cpp / .hpp
+        ****_ csv.cpp / .hpp
+        ****_ gps.cpp / .hpp
+        ****_ lora.cpp / .hpp
+        ****_ rs485.cpp / .hpp
+        *** utils
+        **** can_ids
+        **** capnp-proto
+        **** minmea
+        **** rs485_parser
+        **** rtc_watchdog
+        ****_ data.cpp / .hpp
+        ***_ main.cpp
+        **_ CMakeLists.txt
+        **_ README.md
+        @endmindmap
+    \end{plantuml}
+\end{center}
+
+\subsubsection{Data Storage}
+% TODO explain how we store data in code and what a flatbuffer is
+
+\input{implementation/peripherals/main}

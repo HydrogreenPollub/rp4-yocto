@@ -1,14 +1,9 @@
-\clearpage
-\section{Hardware}
-
-TODO give literature for these Technologies
-
-% TODO show pictures of Beaglebone, RaspberryPI and the final board with modules attached
-
 \subsection{Main board}
 There are multiple options for the main board.
 The following section will serve as a short overview of each option
 and provide reasoning behind the final choice.
+
+% TODO show pictures of Beaglebone, RaspberryPI and the final board with modules attached
 
 \subsubsection{Custom Single Board Computer}
 Developing a custom linux based system is the best solution for a large scale project.
@@ -59,17 +54,3 @@ makes development much simpler.
 It also features many already built hardware modules which makes it possible to
 extend the capability of the board with additional peripherals. Such modules
 will be used throughout this project.
-
-\subsection{Modules}
-As mentioned this project takes advantage of multiple ready-made RaspberryPI modules available on the market.
-
-% TODO show pictures of these modules
-\subsubsection{sb-components LoRa HAT}
-This module provides a simple way to transmit data over LoRa. This is how information is sent to the base station.
-
-\subsubsection{Waveshare RS485 CAN HAT (B)}
-This module provides both CAN and RS485 interfaces, which are necessary for communicating with the electrical components of the vehicle.
-
-\subsubsection{GPS GU-502GGB}
-This module receives \verb|NMEA| packets via \verb|GPS|. Such packets contain geographic coordinates, speed and even the current time.
-This data is crucial for analyzing a race. It lets the racing team optimize fuel usage throughout the track.

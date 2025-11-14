@@ -7,7 +7,7 @@ RPI_EXTRA_CONFIG:append = "dtoverlay=disable-dt\n"
 ENABLE_UART = "1"
 
 # CAN settings
-RPI_EXTRA_CONFIG:append = "dtoverlay=mcp2515-can0,ocillator=16000000,interrupt=25,,spimaxfrequency=1000000\n"
+RPI_EXTRA_CONFIG:append = "dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25,,spimaxfrequency=1000000\n"
 
 # RS485 settings
 ENABLE_SPI_BUS = "1"
