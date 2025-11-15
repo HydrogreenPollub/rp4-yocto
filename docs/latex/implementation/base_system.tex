@@ -10,33 +10,16 @@ called \verb|/boot/firmware/config.txt|. This file is read by the \verb|GPU| bef
 initializes. This file can be used to configure hardware options, \verb|devicetree| overlays and other features.~\cite{raspberry-pi-manual}
 
 For this system the following changes to \verb|rpi-config_git.bbappend| were required for the added peripherals to work:
-\begin{lstlisting}
-# Changes to config.txt
-BOOT_DELAY = "0"
-DISABLE_SPLASH = "1"
-RPI_EXTRA_CONFIG:append = "dtoverlay=disable-dt\n"
-
-# LORA settings
-ENABLE_UART = "1"
-
-# CAN settings
-RPI_EXTRA_CONFIG:append = "\
-dtoverlay=mcp2515-can0,\
-oscillator=16000000,\
-interrupt=25,\
-,spimaxfrequency=1000000\n"
-
-# RS485 settings
-ENABLE_SPI_BUS = "1"
-RPI_EXTRA_CONFIG:append = "dtoverlay=sc16is752-spi1,int_pin=24\n"
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/yocto/rpi_conf.png}
+\end{center}
 
 An issue that arises with the \verb|LoRa| module is that it is treated as a \verb|tty| device.
 This means that it by default receives kernel logs and consequently sends them via \verb|LoRa|.
 This behavior is undesired, so it required disabling the kernel logs via \verb|rpi-cmdline.bbappend| recipe.
-\begin{lstlisting}
-CMDLINE:append = " loglevel=0"
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/yocto/rpi_cmdline.png}
+\end{center}
 
 This fix is suboptimal, since it disables logs for all \verb|tty|, but no better solution was found in the development process.
 
@@ -48,60 +31,29 @@ On a modern system this configuration is usually done either using \verb|systemd
 These tools are very powerful and user-friendly, but unnecessarily large for embedded applications.\\
 
 This system uses a light-weight legacy method. It's configured using \verb|ifup/ifdown| via \verb|/etc/network/interfaces| file.
-
-\begin{lstlisting}
-# Loopback
-auto lo
-iface lo inet loopback
-
-# Static IP address
-allow-hotplug eth0
-iface eth0 inet static
-    address 192.168.1.100
-    netmask 255.255.255.0
-    gateway 192.168.1.1
-
-# CAN configuration
-auto can0
-iface can0 inet manual
-    pre-up ip link set can0 type can bitrate 500000 restart-ms 100
-    up ip link set can0 up
-    down ip link set can0 down
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/yocto/interfaces.png}
+\end{center}
 
 For debugging purposes the system allows connecting over \verb|SSH|.
 It uses \verb|Dropbear|, a minimal \verb|SSH Server|.\\
 
 The interface has a static address of \verb|192.168.1.100 /24|.
 To make the interface hotpluggable \verb|ifplugd| was used with the following config file.
-
-\begin{lstlisting}
-INTERFACES="eth0"
-HOTPLUG_INTERFACES="eth0"
-ARGS="-q -f -u0 -d10 -w -I"
-SUSPEND_ACTION="stop"
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{images/yocto/ifplugd.png}
+\end{center}
 
 In order to use this custom configuration file it was necessary to append to the original recipe with a \verb|ifplugd_%.bbappend| file.
-\begin{lstlisting}
-FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-
-SRC_URI += "file://ifplugd"
-
-do_install:append() {
-    install -d ${D}${sysconfdir}/default
-    install -m 0644 ${WORKDIR}/ifplugd ${D}${sysconfdir}/default/ifplugd
-}
-
-FILES:${PN} += "${sysconfdir}/default/ifplugd"
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/yocto/ifplugd_recipe.png}
+\end{center}
 
 For \verb|Dropbear| to work it is required to add a password to the system.
 This was done by adding the following section to the main \verb|hydrogreen-image.bb| file:
-\begin{lstlisting}
-inherit extrausers
-EXTRA_USERS_PARAMS = "usermod -p '<HASHED_PASSWORD>' root;"
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/yocto/set_password.png}
+\end{center}
 
 \subsubsection{Graphical interface}
 During the development of the project a possibility of using cameras as rear view mirrors of the vehicle was explored.
@@ -111,16 +63,9 @@ During the development of the project a possibility of using cameras as rear vie
 
 The camera image would be displayed on a \verb|Waveshare 7" LCD| touchscreen.
 To support that display the following section needs to be added to the \verb|config.txt| file.
-\begin{lstlisting}
-# Waveshare display rp4 setup
-HDMI_GROUP = "2"
-HDMI_MODE = "87"
-HDMI_CVT = "1024 600 60 6 0 0 0"
-HDMI_DRIVE = "1"
-
-# Allow higher power draw for USB devices (makes display brighter)
-MAX_USB_CURRENT = "1"
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{images/yocto/rpi_disp.png}
+\end{center}
 
 % TODO check command for showing camera image on screen (does it work?)
 To show the camera output on screen we can run \verb|mpv /dev/video0|.
@@ -133,36 +78,8 @@ To include this library we simply added it as a dependency of our project.
 For libraries that don't have any existing recipes it is required to write a custom one.
 In the case of the telemetry application, \verb|capnproto| was needed.
 To add it to the project a \verb|capnbroto_1.1.0.bb| recipe file was created with the following contents:
-\begin{lstlisting}
-SUMMARY = "Cap'n Proto serialization/RPC system"
-DESCRIPTION = "Cap’n Proto is an insanely fast data interchange format and capability-based RPC system. "
-HOMEPAGE = "https://github.com/sandstorm-io/capnproto"
-SECTION = "console/tools"
-LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://../LICENSE;md5=a05663ae6cca874123bf667a60dca8c9"
+\begin{center}
+    \includegraphics[width=\textwidth]{images/yocto/capnproto.png}
+\end{center}
 
-SRC_URI = "git://github.com/capnproto/capnproto.git;" \
-        "branch=release-${PV};protocol=https"
-SRCREV = "b34ec28cceaf15b1082b74b50f03f770873c3636"
-
-S = "${WORKDIR}/git/c++"
-
-inherit cmake
-
-CXXFLAGS:append:mips = " -latomic"
-CXXFLAGS:append:powerpc = " -latomic"
-CXXFLAGS:append:riscv32 = " -latomic"
-
-EXTRA_OECMAKE += "\
-    -DBUILD_TESTING=OFF \
-"
-
-FILES:${PN}-compiler = "${bindir}"
-
-PACKAGE_BEFORE_PN = "${PN}-compiler"
-RDEPENDS:${PN}-dev += "${PN}-compiler"
-
-BBCLASSEXTEND = "native nativesdk"
-\end{lstlisting}
-
-This recipe clones the official \verb|capnproto| github repository and builds it from source using \verb|cmake|
+This recipe clones the official \verb|capnproto| github repository and builds it from source using \verb|cmake|.

@@ -3,71 +3,22 @@ Each peripheral has its own way of communicating with our system.
 Each one also runs in a separate thread for performance reasons.
 
 We initialize them in the \verb|main.cpp| file.
-\begin{lstlisting}
-int main()
-{
-    // Initialize capnp
-    init_data();
-
-    // Initialize RTC
-    if (DEV_ModuleInit() == 1)
-        return 1;
-
-    DEV_I2C_Init(DS3231_Address);
-
-    DS3231_SET_Hour_Mode(24);
-    DS3231_SET_Calendar(2137, 12, 31);
-    DS3231_SET_Day(7);
-    DS3231_SET_Time(21, 37, 00);
-
-    // Split program into multiple threads
-    std::thread can_thread = std::thread(Can {});
-    std::thread csv_thread = std::thread(csv, nullptr);
-    std::thread gps_thread = std::thread(gps, nullptr);
-    std::thread rs485_thread = std::thread(rs485, nullptr);
-    std::thread lora_thread = std::thread(lora, nullptr);
-
-    struct sigaction sig = {};
-    sig.sa_handler = sigaction_handler;
-    sigaction(SIGINT, &sig, NULL);
-
-    while (running) {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-
-    if (can_thread.joinable())
-        can_thread.join();
-    if (csv_thread.joinable())
-        csv_thread.join();
-    if (gps_thread.joinable())
-        gps_thread.join();
-    if (rs485_thread.joinable())
-        rs485_thread.join();
-    if (lora_thread.joinable())
-        lora_thread.join();
-
-    return EXIT_SUCCESS;
-}
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/code/main.png}
+\end{center}
 
 Notice how the creation of the \verb|CAN| thread has a different syntax.
 This is because the \verb|Can| class is a functor. This was done to showcase
 the different syntax possible in \verb|C++|.
 
 To achieve this behavior the \verb|CAN| class is defined in the following way:
-\begin{lstlisting}
-class Can {
-private:
-    int socket;
-
-    void bind();
-
-public:
-    void operator()();
-};
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/code/can_class.png}
+\end{center}
 
 The other peripherals are represented by plain functions, since it's a simpler solution.
+
+TODO REPLACE ALL CODE WITH SCREENSHOTS
 
 \input{implementation/peripherals/can}
 \input{implementation/peripherals/csv}

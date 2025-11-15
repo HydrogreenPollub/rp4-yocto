@@ -18,12 +18,12 @@ There are various linux distributions that are well suited for a \verb|Raspberry
 embedded system.
 
 %TODO write a bit about each system
-\subsubsection{Debian}
+\paragraph{Debian}
 \verb|Debian| is known for being stable and secure.\\
 It is the basis for many popular distributions, such as \verb|Ubuntu|, \verb|Tails| and many others.~\cite{reasons-to-use-debian}
 % TODO write more
 
-\subsubsection{RasperryPI OS}
+\paragraph{RasperryPI OS}
 Based on debian it is optimized for the \verb|RaspberryPI|.
 
 It is designed to be educational, so it contains a lot of extra software.
@@ -31,11 +31,11 @@ For embedded applications the system often doesn't need features like graphical 
 or complex text editors. Usually a \verb|tty| with \verb|vi| installed is enough.
 % TODO write more
 
-\subsubsection{DietPI}
+\paragraph{DietPI}
 \verb|DietPI| is a \verb|Debian| based image designed to be as small as possible.
 % TODO write more
 
-\subsubsection{Ubuntu Core}
+\paragraph{Ubuntu Core}
 \verb|Ubuntu Core| is a version of the popular \verb|Ubuntu| distribution,
 designed with embedded applications in mind.\\
 
@@ -49,25 +49,25 @@ This approach solves dependency version conflicts at the cost of increased disk 
 In embedded systems disk space is often limited and in this case the overhead related with
 \verb|snap| packages is not acceptable.
 
-\subsubsection{OpenWrt}
+\paragraph{OpenWrt}
 TODO
 
 \subsection{Creating custom distributions}
 In order to have better control over the hardware this project uses a custom
 distribution. The most common ways of building such distributions are:
 
-\subsubsection{From scratch}
+\paragraph{From scratch}
 Building a custom linux distribution from scratch is a possibility. It gives the developer complete control over his system.
 It is also a great way to gain insight on the inner workings of Linux.~\cite{linux-from-scratch}
 
 However for this project that control will not be required. Instead it would
 add unnecessary complexity.
 
-\subsubsection{Buildroot}
+\paragraph{Buildroot}
 This option is one of the most popular on the market. It is often viewed as the simplest one.
 What makes it not suitable for this project is the structure of the config file being inherently unordered.
 Another factor is the documentation being very difficult to read both due to its style and presentation.
 
-\subsubsection{Yocto}
+\paragraph{Yocto}
 While this option is definitely more complex than \verb|buildroot| it features much better documentation, as well as a thriving community
 that makes development much easier.

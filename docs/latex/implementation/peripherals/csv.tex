@@ -6,53 +6,16 @@ This is done in order to not overwrite the data collected during last run,
 as well as to separate the reboots from each other.
 
 The code responsible for creating these files is the following:
-\begin{lstlisting}
-std::string logDir = std::string("/home/root/logs");
-std::filesystem::create_directories(logDir);
-
-// Find the next available numbered file: data_1.csv, data_2.csv, etc.
-int fileIndex = 1;
-std::string filename;
-do {
-    filename = logDir + "/data_" + std::to_string(fileIndex) + ".csv";
-    fileIndex++;
-} while (std::filesystem::exists(filename));
-
-std::ofstream output(filename, std::ios::app);
-
-if (!output.is_open()) {
-    std::cout << "CSV: Unable to open csv file - " << filename << std::endl;
-    return nullptr;
-}
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/code/csv_create.png}
+\end{center}
 
 After this the \verb|CSV| header is written to the newly created file.
-
-\begin{lstlisting}
-output << std::fixed << std::setprecision(10);
-output << "time,"
-        << "timeBeforeTransmit,"
-        << "accessoryBatteryVoltage,"
-        << "accessoryBatteryCurrent,"
-        ...
-        << "motorControllerEnableOutput"
-        << std::endl;
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/code/csv_header.png}
+\end{center}
 
 And finally the file is written to every 10ms with the latest data.
-\begin{lstlisting}
-while (true) {
-    auto now = std::chrono::system_clock::now();
-    auto timestamp = std::chrono::system_clock::to_time_t(now);
-
-    output << static_cast<int>(timestamp) << ","
-            << get_timeBeforeTransmit() << ","
-            << get_accessoryBatteryVoltage() << ","
-            << get_accessoryBatteryCurrent() << ","
-            ...
-            << (get_motorControllerEnableOutput() ? "true" : "false")
-            << std::endl;
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-}
-\end{lstlisting}
+\begin{center}
+    \includegraphics[width=\textwidth]{images/code/csv_save.png}
+\end{center}

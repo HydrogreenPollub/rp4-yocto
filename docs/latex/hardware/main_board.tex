@@ -5,7 +5,7 @@ and provide reasoning behind the final choice.
 
 % TODO show pictures of Beaglebone, RaspberryPI and the final board with modules attached
 
-\subsubsection{Custom Single Board Computer}
+\paragraph{Custom Single Board Computer}
 Developing a custom linux based system is the best solution for a large scale project.
 It gives the developer team full control over the system hardware. It also allows for much smaller designs by integrating the used peripherals into the same board.
 It also maximizes the profits for mass manufacturing.
@@ -26,21 +26,35 @@ involved in custom hardware.
 
 The added complexity makes this a suboptimal solution for this project.
 
-\subsubsection{Beaglebone Black}
+\paragraph{Beaglebone Black}
 This board is a popular option for both hobbyist and industry specialists.
 
 While it is a very powerful option its downsides are that its expensive and
 lacks a hobbyist oriented community.
 
-\subsubsection{EdgeBox-RPI}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/hardware/beaglebone.png}\par
+    \caption{Beaglebone Black}
+    \label{fig:beaglebone}
+\end{figure}
+
+\paragraph{EdgeBox-RPI}
 This board is based on the \verb|RasperryPI| chip. It has been designed for industrial applications.
 It offers built-in \verb|RS485|, \verb|RS232| and \verb|CAN| support. It also features an \verb|RTC|.
 
 It would be a great choice for an industrial settings, but in this case the price was too high and
 the community around it was too small.
-%TODO cite website and add picture
+%TODO cite website
 
-\subsubsection{RaspberryPI}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/hardware/edgebox.png}\par
+    \caption{EdgeBox-RPI}
+    \label{fig:edgebox}
+\end{figure}
+
+\paragraph{RaspberryPI}
 This series of boards features a wide range of possible hardware. This provides the user with a wide range of possible system peripherals.
 This project uses a RaspberryPI 4b.
 
@@ -54,3 +68,10 @@ makes development much simpler.
 It also features many already built hardware modules which makes it possible to
 extend the capability of the board with additional peripherals. Such modules
 will be used throughout this project.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/hardware/rp4.jpg}\par
+    \caption{RaspberryPI 4}
+    \label{fig:rp4}
+\end{figure}
