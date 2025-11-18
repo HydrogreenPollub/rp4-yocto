@@ -3,10 +3,21 @@
 The telemetry application collects data from several peripherals and does two separate things with it.
 
 Firstly it sends the data to a remote base station by \verb|LoRa|.
+
+% TODO Cite some source about LoRa
+\verb|LoRa| is a radio communication technique used for sending packets over long distances.
+It is the basis for \verb|LoRaWAN|.\@
+
 That base station then sends it via \verb|MQTT| to \verb|Graphana| as well as saves it to a \verb|PostgreSQL| database.
+
+% TODO Cite some source about MQTT
+\verb|MQTT| is a lightweight publish-subscribe protocol commonly used in \verb|IoT| applications due to its low bandwidth requirements.
 
 Secondly it saves the measurements locally to a \verb|CSV| file.
 This is done as a backup in case of \verb|LoRa| transmission failures.
+
+The application is written mostly in \verb|C++| with small parts written in \verb|C|.
+% TODO somehow cite ritchie kernighan
 
 % TODO title diagram
 \begin{center}
