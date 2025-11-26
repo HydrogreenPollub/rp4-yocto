@@ -1,9 +1,16 @@
 \ProvidesPackage{mk-preamble}[Personalised LaTeX style]
 
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 
+% Font
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Heros}
+
+% Margins
+\usepackage[a4paper,margin=3cm]{geometry}
+
+% Bibliography
 \usepackage[
     backend=biber,
     style=ieee,
@@ -16,5 +23,6 @@
     eprint=false
 ]{biblatex}
 
+% PlantUML diagrams - TODO remove
 \usepackage{adjustbox}
 \usepackage{plantuml}

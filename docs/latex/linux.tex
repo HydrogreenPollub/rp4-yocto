@@ -68,8 +68,15 @@ add unnecessary complexity.
 
 \paragraph{Buildroot}
 This option is one of the most popular on the market. It is often viewed as the simplest one.
-What makes it not suitable for this project is the structure of the config file being inherently unordered.
-Another factor is the documentation being very difficult to read both due to its style and presentation.~\cite{buildroot-manual}
+
+\verb|Buildroot| provides the developer with a main config file where they can select the options they want
+their final system to have. The entire build process is based on \verb|Makefiles|.
+Every package has a \verb|.mk| file that describes how to download, configure, compile and install that package.
+
+This design means that caching is limited, which can cause unnecessary rebuilds.
+
+Another thing than makes it not suitable for this project is the structure of the config file being inherently unordered.
+As the deciding factor the documentation being very difficult to read both due to its style and presentation.~\cite{buildroot-manual}
 
 \paragraph{Yocto}
 An open source tool for building custom linux-based systems.

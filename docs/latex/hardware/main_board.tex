@@ -8,23 +8,23 @@ and provide reasoning behind the final choice.
 \paragraph{Custom Single Board Computer}
 Developing a custom linux based system is the best solution for a large scale project.
 It gives the developer team full control over the system hardware. It also allows for much smaller designs by integrating the used peripherals into the same board.
-It also maximizes the profits for mass manufacturing.
 
 Designing such boards requires significant knowledge in the domain of PCB design.
 To run well linux needs to be run on an application microprocessor, such as a \textbf{Cortex-A}.
+
+For large projects it maximizes profits for mass manufacturing.
+In the case of small projects such as this one the benefits of mass production
+don't apply, so it would actually be more expensive.
 
 Boards for such chips are usually more complex than microcontroller boards.
 Microprocessors often require several voltage levels that need to be supplied from external regulators, while microcontrollers almost universally have a single level fixed supply voltage.
 Another source of complexity is that microprocessors usually need external RAM.~\cite{jay-carlson-embedded-linux}
 
-In the case of small projects such as this one the benefits of mass production
-don't apply, so it would actually be more expensive.
-
 The difficulty involved in developing such a system could prove too substantial
 for small teams due to lack of modules as well as the increased complexity
 involved in custom hardware.
 
-The added complexity makes this a suboptimal solution for this project.
+The added complexity and cost makes this a suboptimal solution for this project.
 
 \paragraph{Beaglebone Black}
 This board is a popular option for both hobbyist and industry specialists.

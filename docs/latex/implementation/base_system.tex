@@ -7,7 +7,7 @@ The system uses several peripherals that require additional hardware configurati
 
 Instead of using a conventional \verb|BIOS| the \verb|RaspberryPI| uses a file
 called \verb|/boot/firmware/config.txt|. This file is read by the \verb|GPU| before the \verb|CPU|
-initializes. This file can be used to configure hardware options, \verb|devicetree| overlays and other features.~\cite{raspberry-pi-manual}
+initializes. This file can be used to configure hardware options, \verb|devicetree| overlays and other features~\cite{raspberry-pi-manual}.
 
 For this system the following changes to \verb|rpi-config_git.bbappend| were required for the added peripherals to work:
 \begin{center}
