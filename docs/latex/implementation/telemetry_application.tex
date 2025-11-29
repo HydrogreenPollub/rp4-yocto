@@ -19,71 +19,22 @@ This is done as a backup in case of \verb|LoRa| transmission failures.
 The application is written mostly in \verb|C++| with small parts written in \verb|C|.
 % TODO somehow cite ritchie kernighan
 
-% TODO title diagram
-\begin{center}
-    \begin{plantuml}
-        @startuml
-        component "Telemetry Application" as App
-
-        ' Peripherals
-        component CAN
-        component "GPS Module" as GPS
-        component RS485
-
-        ' Outputs
-        component CSV
-        component "Base Station" as Station
-
-        ' Inputs to the application
-        CAN <-> App
-        GPS --> App
-        RS485 --> App
-
-        ' Output from the application
-        App --> CSV
-        App --> Station : LoRa
-
-        note right of App
-        Collects data from peripherals,
-        periodically sends readings
-        to base station via LoRa.
-        Also saves readings to
-        a local CSV file.
-        end note
-
-        @enduml
-    \end{plantuml}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/diagrams/interactions.png}\par
+    \caption{How subsystems interact.}
+    \label{fig:diagram-interactions}
+\end{figure}
 
 \subsubsection{Project Structure}
 The simplified folder structure of the application looks like the following:
-% TODO make this diagram more informative
-% TODO instead of this, render the images in build.sh
-\begin{center}
-    \begin{plantuml}
-        @startmindmap
-        * rp4-telemetry
-        ** build
-        ** src
-        *** threads
-        ****_ can.cpp / .hpp
-        ****_ csv.cpp / .hpp
-        ****_ gps.cpp / .hpp
-        ****_ lora.cpp / .hpp
-        ****_ rs485.cpp / .hpp
-        *** utils
-        **** can_ids
-        **** capnp-proto
-        **** minmea
-        **** rs485_parser
-        **** rtc_watchdog
-        ****_ data.cpp / .hpp
-        ***_ main.cpp
-        **_ CMakeLists.txt
-        **_ README.md
-        @endmindmap
-    \end{plantuml}
-\end{center}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/diagrams/file-structure.png}\par
+    \caption{Project file structure}
+    \label{fig:diagram-file-structure}
+\end{figure}
 
 \subsubsection{Data Storage}
 % TODO explain how we store data in code and what a flatbuffer is

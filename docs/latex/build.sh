@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export PLANTUML_JAR=~/plantuml.jar
+mkdir -p build
 
-lualatex -shell-escape main.tex     # Creates bibliography
-biber main                          # Fills bibliography
-lualatex -shell-escape main.tex     # Generates finished PDF
+lualatex -shell-escape -output-directory=build main.tex     # Creates bibliography
+biber --input-directory build --output-directory build main # Generates bibliography
+lualatex -shell-escape -output-directory=build main.tex     # Generates finished PDF

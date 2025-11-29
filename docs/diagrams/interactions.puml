@@ -1,0 +1,30 @@
+@startuml
+component "Telemetry Application" as App
+
+' Peripherals
+component CAN
+component "GPS Module" as GPS
+component RS485
+
+' Outputs
+component CSV
+component "Base Station" as Station
+
+' Inputs to the application
+CAN <-> App
+GPS --> App
+RS485 --> App
+
+' Output from the application
+App --> CSV
+App --> Station : LoRa
+
+note right of App
+Collects data from peripherals,
+periodically sends readings
+to base station via LoRa.
+Also saves readings to
+a local CSV file.
+end note
+
+@enduml
