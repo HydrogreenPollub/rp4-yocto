@@ -6,16 +6,25 @@ This is done in order to not overwrite the data collected during last run,
 as well as to separate the reboots from each other.
 
 The code responsible for creating these files is the following:
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/csv_create.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/code/csv_create.png}\par
+    \caption{Creating the CSV file}
+    \label{fig:code-csv-create}
+\end{figure}
 
 After this the \verb|CSV| header is written to the newly created file.
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/csv_header.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/code/csv_header.png}\par
+    \caption{Writing CSV header}
+    \label{fig:code-csv-header}
+\end{figure}
 
 And finally the file is written to every 10ms with the latest data.
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/csv_save.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/code/csv_save.png}\par
+    \caption{Writing to CSV file}
+    \label{fig:code-csv-save}
+\end{figure}

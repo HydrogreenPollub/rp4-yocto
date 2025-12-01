@@ -3,21 +3,16 @@ Each peripheral has its own way of communicating with our system.
 Each one also runs in a separate thread for performance reasons.
 
 We initialize them in the \verb|main.cpp| file.
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/main.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/code/main.png}\par
+    \caption{Main function of telemetry application}
+    \label{fig:code-main}
+\end{figure}
 
-% TODO remove this syntax rant
-Notice how the creation of the \verb|CAN| thread has a different syntax.
-This is because the \verb|Can| class is a functor. This was done to showcase
-the different syntax possible in \verb|C++|.
-
-To achieve this behavior the \verb|CAN| class is defined in the following way:
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/can_class.png}
-\end{center}
-
-The other peripherals are represented by plain functions, since it's a simpler solution.
+All of these peripherals are represented by plain functions. In \verb|C++| threads can be created
+by passing these functions to a \verb|std::thread()| function. After that the program can run that thread
+by calling it's \verb|.join()| method \cite{cpp-programming-language}.
 
 \input{implementation/peripherals/can}
 \input{implementation/peripherals/csv}

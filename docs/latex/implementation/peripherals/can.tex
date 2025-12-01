@@ -8,9 +8,12 @@ the \verb|Linux kernel|. It simplifies \verb|CAN| interactions, by abstracting i
 a network socket.~\cite{socket-can-manual}
 
 To initialize this peripheral, the socket needs to be bound in the following way:
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/can_bind.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/code/can_bind.png}\par
+    \caption{Binding the CAN socket}
+    \label{fig:code-can-bind}
+\end{figure}
 
 Configuring the socket is done using system calls like verb|ioctl| and \verb|fcntl|.
 \verb|ioctl| allows us to interact with hardware devices.
@@ -25,12 +28,18 @@ back to the steering wheel to be displayed to the driver.
 
 These actions are performed in a \verb|while(true)| loop. That loop is responsible for two distinct tasks.
 The first task is reading the information being sent by the steering wheel controller.
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/can_run_read.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/code/can_run_read.png}\par
+    \caption{Reading CAN packets}
+    \label{fig:code-can-run-read}
+\end{figure}
 
 The second task is writing data to the steering wheel controller.
 This data is then displayed to the driver on a built-in display.
-\begin{center}
-    \includegraphics[width=\textwidth]{images/code/can_run_write.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/code/can_run_write.png}\par
+    \caption{Writing data to the CAN bus}
+    \label{fig:code-can-run-write}
+\end{figure}

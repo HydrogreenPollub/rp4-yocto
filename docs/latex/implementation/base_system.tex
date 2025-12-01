@@ -10,16 +10,22 @@ called \verb|/boot/firmware/config.txt|. This file is read by the \verb|GPU| bef
 initializes. This file can be used to configure hardware options, \verb|devicetree| overlays and other features~\cite{raspberry-pi-manual}.
 
 For this system the following changes to \verb|rpi-config_git.bbappend| were required for the added peripherals to work:
-\begin{center}
-    \includegraphics[width=\textwidth]{images/yocto/rpi_conf.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/yocto/rpi_conf.png}\par
+    \caption{RaspberryPI config.txt changes}
+    \label{fig:yocto-rpi-conf}
+\end{figure}
 
 An issue that arises with the \verb|LoRa| module is that it is treated as a \verb|tty| device.
 This means that it by default receives kernel logs and consequently sends them via \verb|LoRa|.
 This behavior is undesired, so it required disabling the kernel logs via \verb|rpi-cmdline.bbappend| recipe.
-\begin{center}
-    \includegraphics[width=0.6\textwidth]{images/yocto/rpi_cmdline.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/yocto/rpi_cmdline.png}\par
+    \caption{RaspberryPI disable kernel logs}
+    \label{fig:yocto-rpi-cmdline}
+\end{figure}
 
 This fix is suboptimal, since it disables logs for all \verb|tty|, but no better solution was found in the development process.
 
@@ -30,30 +36,42 @@ The system has a static address ethernet port, as well as a \verb|CAN| network i
 On a modern system this configuration is usually done either using \verb|systemd-networkd| or \verb|NetworkManager|.
 These tools are very powerful and user-friendly, but unnecessarily large for embedded applications.\\
 
-This system uses a light-weight legacy method. It's configured using \verb|ifup/ifdown| via \verb|/etc/network/interfaces| file.
-\begin{center}
-    \includegraphics[width=\textwidth]{images/yocto/interfaces.png}
-\end{center}
+This system uses a light-weight legacy method. It's configured using \verb|ifup/ifdown|\\ via \verb|/etc/network/interfaces| file.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/yocto/interfaces.png}\par
+    \caption{Networking Interfaces Configuration}
+    \label{fig:yocto-interfaces}
+\end{figure}
 
 For debugging purposes the system allows connecting over \verb|SSH|.
 It uses \verb|Dropbear|, a minimal \verb|SSH Server|.\\
 
 The interface has a static address of \verb|192.168.1.100 /24|.
 To make the interface hotpluggable \verb|ifplugd| was used with the following config file.
-\begin{center}
-    \includegraphics[width=0.6\textwidth]{images/yocto/ifplugd.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/yocto/ifplugd.png}\par
+    \caption{Interface Hotpluggability Config}
+    \label{fig:yocto-ifplugd}
+\end{figure}
 
 In order to use this custom configuration file it was necessary to append to the original recipe with a \verb|ifplugd_%.bbappend| file.
-\begin{center}
-    \includegraphics[width=\textwidth]{images/yocto/ifplugd_recipe.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/yocto/ifplugd_recipe.png}\par
+    \caption{Appending ifplugd recipe}
+    \label{fig:yocto-ifplugd-recipe}
+\end{figure}
 
 For \verb|Dropbear| to work it is required to add a password to the system.
 This was done by adding the following section to the main \verb|hydrogreen-image.bb| file:
-\begin{center}
-    \includegraphics[width=\textwidth]{images/yocto/set_password.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/yocto/set_password.png}\par
+    \caption{Setting root password}
+    \label{fig:yocto-password}
+\end{figure}
 
 \subsubsection{Graphical interface}
 During the development of the project a possibility of using cameras as rear view mirrors of the vehicle was explored.
@@ -63,9 +81,12 @@ During the development of the project a possibility of using cameras as rear vie
 
 The camera image would be displayed on a \verb|Waveshare 7" LCD| touchscreen.
 To support that display the following section needs to be added to the \verb|config.txt| file.
-\begin{center}
-    \includegraphics[width=0.8\textwidth]{images/yocto/rpi_disp.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/yocto/rpi_disp.png}\par
+    \caption{Display Configuration}
+    \label{fig:yocto-display}
+\end{figure}
 
 % TODO check command for showing camera image on screen (does it work?)
 To show the camera output on screen we can run \verb|mpv /dev/video0|.
@@ -78,8 +99,11 @@ To include this library we simply added it as a dependency of our project.
 For libraries that don't have any existing recipes it is required to write a custom one.
 In the case of the telemetry application, \verb|capnproto| was needed.
 To add it to the project a \verb|capnbroto_1.1.0.bb| recipe file was created with the following contents:
-\begin{center}
-    \includegraphics[width=\textwidth]{images/yocto/capnproto.png}
-\end{center}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/yocto/capnproto.png}\par
+    \caption{Building Capnproto Library}
+    \label{fig:yocto-capnproto}
+\end{figure}
 
 This recipe clones the official \verb|capnproto| github repository and builds it from source using \verb|cmake|.
