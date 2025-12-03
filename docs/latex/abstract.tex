@@ -3,9 +3,14 @@
 
 This thesis focuses on the design and implementation of a \verb|Linux| based telemetry
 system designed for a custom hydrogen vehicle participating in the \verb|Shell Eco-Marathon| competition.
-Such a system provides a competitive edge over other teams and the unique vehicle architecture forces
-the use of a fully custom system.
+This system provided a competitive edge over other teams. During the design process the unique vehicle
+architecture forced the use of a fully custom system.
 
-The objective is to create a full hardware-software solution capable of collecting, processing and sending
-information to a base station. It should use a \verb|Raspberry Pi| and be able to integrate with peripherals
+The objective was to create a full hardware-software solution capable of collecting, processing and sending
+information to a base station. It uses a \verb|Raspberry Pi| and is able to integrate with peripherals
 using \verb|CAN| and \verb|RS485|.
+
+The base system was built using \verb|Yocto| and the telemetry application was written in \verb|C++|.
+
+During the competition the system proved highly useful in troubleshooting various issues. It also provided
+the team with data that will help to direct the efforts in future development.

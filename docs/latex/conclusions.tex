@@ -5,9 +5,17 @@ During the \verb|Shell Eco-Marathon 2025| the potential of having a telemetry sy
 realized. It helped greatly with diagnosing vehicle issues by allowing for a real time view
 of all the parameters.
 
-In the future with more teams using \verb|LoRa| for transferring telemetry information,
-it will be very likely that additional parameter tuning will be required.
+\subsection{Limitations and Future Work}
+While the telemetry system proved useful, several areas remain open for improvement
+and it is important to set new goals for the competition next year.
 
-As another potential area of improvement \verb|LoRa WAN| would likely make it possible to
+In the future with more teams using \verb|LoRa| for transferring telemetry information,
+transmission parameter tuning will likely be required. As another potential area of improvement \verb|LoRa WAN| would likely make it possible to
 have multiple vehicles sending telemetry information to a single base station.
 While such a case won't happen during a race, it would simplify testing of vehicles.
+
+The kernel logs being sent over \verb|LoRa| will also need to be addressed in a more robust way than just turning off the logs.
+
+Currently the development procedure is very time consuming due to needing to write an entire system image to an \verb|SD card|
+every time that the firmware changes. It would greatly speed up the process if a partial update mechanism was implemented.
+One potential way of performing such updates could be \verb|systemd-sysupdate|.
