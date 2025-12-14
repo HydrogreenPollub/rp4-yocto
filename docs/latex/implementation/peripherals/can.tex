@@ -14,6 +14,7 @@ To initialize this peripheral, the socket needs to be bound in the following way
     \caption{Binding the CAN socket}
     \label{fig:code-can-bind}
 \end{figure}
+\FloatBarrier
 
 Configuring the socket is done using system calls like verb|ioctl| and \verb|fcntl|.
 \verb|ioctl| allows us to interact with hardware devices.
@@ -34,6 +35,7 @@ The first task is reading the information being sent by the steering wheel contr
     \caption{Reading CAN packets}
     \label{fig:code-can-run-read}
 \end{figure}
+\FloatBarrier
 
 The second task is writing data to the steering wheel controller.
 This data is then displayed to the driver on a built-in display.
@@ -43,3 +45,4 @@ This data is then displayed to the driver on a built-in display.
     \caption{Writing data to the CAN bus}
     \label{fig:code-can-run-write}
 \end{figure}
+\FloatBarrier

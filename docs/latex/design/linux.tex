@@ -1,90 +1,99 @@
 \clearpage
 \subsection{Reasoning behind using Linux}
-Initially using a linux based system for a race telemetry application might seem excessive.
-It however provides several benefits that make it superior to bare-metal.\\
+At first glance, using a Linux-based system for a race telemetry application may appear excessive.
+However Linux offers several advantages that make it well suited for this type of application when
+compared to a bare-metal approach.
 
-Using linux provides a filesystem as well as a user environment
-that makes it easy to develop and debug the application.\\
+One key benefit of using Linux is the availability of a filesystem and a user-space environment, which
+significantly simplifies application development and debugging. Access to standard tools, logs and familiar
+development workflows reduces development time and improves maintainability.
 
-Another large advantage of using linux instead of bare-metal
-is the built-in support for a large selection of hardware.
-It means that development efforts can be focused on the high level logic
-instead of low level protocol details.~\cite{jay-carlson-embedded-linux}
+Another important advantage is Linux's extensive support for a wide range of hardware.
+Many communication interfaces and peripherals are supported directly by the kernel or through
+mature drivers, allowing development efforts to focus on high-level application login rather than
+low-level protocol implementation~\cite{jay-carlson-embedded-linux}.
+
+Finally, running on Linux enables future system expansion beyond basic telemetry functionality. In particular,
+it allows for the potential integration of more advanced applications, such as autonomous driving,
+which would be impractical or impossible to implement on a traditional bare-metal embedded system.
 
 \subsection{Distributions}
-There are various linux distributions that are well suited for a \verb|RaspberryPI|
-embedded system.
 
-%TODO write a bit about each system
+After selecting Linux as the base operating system, the next step was to examine Linux distributions
+suitable for embedded systems. The evaluation focused on factors such as system size, stability,
+ease of customization and suitability for deployment on resource-constrained hardware.
+
 \paragraph{Debian}
-\verb|Debian| is known for being stable and secure.\\
-It is the basis for many popular distributions, such as \verb|Ubuntu|, \verb|Tails| and many others.~\cite{reasons-to-use-debian}
-% TODO write more
+\verb|Debian| is widely regarded as a stable and secure Linux distribution. It serves as the
+foundation for many other distributions, including \verb|Ubuntu| and \verb|Tails|~\cite{reasons-to-use-debian}.
+Debian provides a large collection of prebuilt packages and extensive documentation.
+However, as a general-purpose distribution, it typically includes many components
+that are not required in embedded applications, which can lead to increased system size.
 
-\paragraph{RasperryPI OS}
-Based on debian it is optimized for the \verb|RaspberryPI|.
-
-It is designed to be educational, so it contains a lot of extra software.
-For embedded applications the system often doesn't need features like graphical interfaces
-or complex text editors. Usually a \verb|tty| with \verb|vi| installed is enough.
-% TODO write more
+\paragraph{Rasperry Pi OS}
+\verb|Raspberry Pi OS| is a Debian-based distribution designed primarily for educational and
+general-purpose use. It offers good hardware support for a wide range of peripherals and is commonly
+used during early development and prototyping. Its default configuration includes a number
+of user-facing tools and graphical components that are often unnecessary for dedicated embedded systems.
 
 \paragraph{DietPI}
-\verb|DietPI| is a \verb|Debian| based image designed to be as small as possible.
-% TODO write more
+\verb|DietPI| is a minimal Debian-based distribution designed to achieve a very small system footprint.
+Its lightweight nature makes it suitable for resource-constrained environments.
+However, the minimal default configuration often requires significant manual setup, which
+can increase development effort and reduce maintainability in more complex projects.
 
 \paragraph{Ubuntu Core}
-\verb|Ubuntu Core| is a version of the popular \verb|Ubuntu| distribution,
-designed with embedded applications in mind.\\
-
-It is immutable, which would make any final products much more reliable.
-It works by letting the developer choose the desired packages in the form of \verb|snap| packages.
-Those packages are then installed on the final image.
-Immutability prevents the end user from changing anything important.~\cite{ubuntu-core-manual}\\
-
-One drawback of using \verb|snap| packages is that each package is separate from the others.
-This approach solves dependency version conflicts at the cost of increased disk space usage.
-In embedded systems disk space is often limited and in this case the overhead related with
-\verb|snap| packages is not acceptable.
+\verb|Ubuntu Core| is an embedded-focused variant of Ubuntu that emphasizes reliability through an immutable
+system design. Applications and services are delivered in the form of \verb|snap| packages, which simplifies
+dependency management and improves isolation~\cite{ubuntu-core-manual}.
+While this approach enhances robustness, it also increases storage requirements due to package duplication,
+which may be a limitation in sme embedded systems.
 
 \paragraph{OpenWrt}
-Short for \verb|Open  Wireless Router| it's an open source system designed
-for networking devices. It's optimized in terms of size, utility and security.
+\verb|OpenWrt| is an open source Linux distribution originally deigned for networking devices.
+It is optimized for small system size, security and network use cases~\cite{openwrt-manual}.
+Although well suited for routers and network appliances, its specialized focus can limit flexibility
+when used as a general-purpose embedded platform.
 
-It provides its users with a security oriented initial configuration.~\cite{openwrt-manual}
+None of the evaluated distributions fully satisfied the requirements of flexibility,
+customization and long-term maintainability, which motivated the use of a custom-built Linux distribution.
 
 \subsection{Creating custom distributions}
-In order to have better control over the hardware this project uses a custom
-distribution. The most common ways of building such distributions are:
+
+To achieve greater control over the system configuration and hardware support, this project uses
+a custom Linux distribution. Several approaches to building such distributions were considered
+and evaluated based on their complexity, flexibility and sustainability for embedded development.
 
 \paragraph{From scratch}
-Building a custom linux distribution from scratch is a possibility. It gives the developer complete control over his system.
-It is also a great way to gain insight on the inner workings of Linux.~\cite{linux-from-scratch}
-
-However for this project that control will not be required. Instead it would
-add unnecessary complexity.
+Building a Linux distribution entirely from scratch is one possible approach.
+It provides control over every component of the system and offers valuable insight into the internal
+mechanisms of the Linux operating system~\cite{linux-from-scratch}. However, this level of control
+was not required for the scope of this project. Developing a system from scratch would introduce
+significant complexity and increase development time without providing corresponding benefits.
 
 \paragraph{Buildroot}
-This option is one of the most popular on the market. It is often viewed as the simplest one.
+\verb|Buildroot| is a popular tool for generating custom embedded Linux systems and is often considered
+one of the simplest solutions available. It provides a centralized configuration file
+that allows the developer to select system features and packages, while the build process is managed through \verb|Makefiles|.
+Each package is defined by a \verb|.mk| file that specifies how it is downloaded, configured,
+compiled and installed.
 
-\verb|Buildroot| provides the developer with a main config file where they can select the options they want
-their final system to have. The entire build process is based on \verb|Makefiles|.
-Every package has a \verb|.mk| file that describes how to download, configure, compile and install that package.
-
-This design means that caching is limited, which can cause unnecessary rebuilds.
-
-Another thing than makes it not suitable for this project is the structure of the config file being inherently unordered.
-As the deciding factor the documentation being very difficult to read both due to its style and presentation.~\cite{buildroot-manual}
+While this approach simplifies initial setup, Buildroot offers limited build caching, which results in
+unnecessary rebuilds during development. Additionally, the configuration structure is
+inherently unordered, making large configurations harder to maintain. The available
+documentation, although comprehensive, is difficult to navigate due to its structure and presentation,
+which further reduces development efficiency~\cite{buildroot-manual}.
 
 \paragraph{Yocto}
-An open source tool for building custom linux-based systems.
-It is designed with embedded applications in mind.
+\verb|Yocto| is an open-source framework for building custom Linux-based systems, specifically designed for
+embedded applications. It provides a high level of abstracton through the use of \verb|recipes|,
+which define how individual components, packages or features are built and how they are integrated
+into the final system. These recipes can be reused and layered, allowing for scalable and maintainable
+system configurations.
 
-\verb|Yocto| provides abstraction over hardware using \verb|recipes|. A recipe
-defines how to install a certain component or feature. Recipes can be reused,
-which simplifies development by automating the installation process.
+Although Yocto introduces additional complexity compared to simpler tools such as \verb|Buildroot|,
+it offers significantly better documentation and a large, active community.
+These factors improve long-term maintainability and reduce development time, making Yocto
+well suited for projects that require flexibility, extensibility and control over the final system image~\cite{yocto-manual}.\\
 
-It is widely considered to be the industry standard for \verb|IoT| Linux applications.
-
-While this option is definitely more complex than \verb|buildroot| it features much better documentation, as well as a thriving community
-that makes development much easier.~\cite{yocto-manual}
+Based on this evaluation, Yocto was selected as the most suitable solution for building the base system used in the project.

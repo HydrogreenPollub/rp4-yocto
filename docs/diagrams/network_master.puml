@@ -6,7 +6,7 @@ package "Vehicle" {
         [CSV]
     }
     [GPS]
-    [Fuel Cell] as FCU
+    [Fuel Cell Controller] as FCU
     [Master]
     [Steering Wheel Controller]
 }

@@ -1,9 +1,33 @@
 \clearpage
 \section{Scope and Goals}
 
-The final telemetry system should be able to integrate with the existing vehicle architecture.
-It needs to be modular, so that the two target vehicles with slightly different architectures can both benefit from it.
-It also needs to be extendable in case new features need to be added in the future.\\
+The goal of this project is to design and implement a telemetry system capable of integrating with a variety of peripherals
+used by a custom hydrogen-fueled vehicle.
 
-To simplify the development process it needs to provide a way to access the logs on the target system.
-%TODO expand on this section
+The system is intended to collect operational data that allows the racing team to monitor lap count and lap times in real time,
+while also providing insight into the system's behavior for troubleshooting and post-race analysis. By collecting this information
+the telemetry system supports both performance evaluation and fault diagnosis.
+
+The telemetry system is designed to be deployed on two different vehicles, each with its own specific
+characteristics and requirements. As a result, the system must be modular in nature allowing individual
+components to be adapted or replaced without requiring a complete redesign. This modular approach also
+ensures that the system can be extended in the future should additional sensors, peripherals, or features be
+required. Flexibility and scalability are therefore key design considerations throughout the project.
+
+Another important objective is to simplify the development and debugging process. To achieve this, the
+system must provide a convenient method for accessing logs and diagnostic information from the
+target hardware. This capability is particularly important during testing and deployment, where limited
+physical access and time constraints can make troubleshooting challenging. Reliable logging helps reduce
+development time and improves overall system robustness.
+
+Before development could begin, careful consideration was given to the selection of appropriate communication
+technologies. Choosing the correct protocols is critical, as they directly affect system reliability, performance
+and ease of integration with other vehicle electronics. Following the selection of the software and communication stack,
+suitable hardware components were chosen to meet the project's functional and environmental requirements. The rationale
+behind these decisions is discussed in detail in later chapters.
+
+This thesis begins with an overview of the communication protocols selected for interfacing with the vehicle
+and for transmitting the collected telemetry data. It then presents the hardware platform and explains the criteria
+that guided its selection. Next, the overall system architecture is described, highlighting the interaction between
+software and hardware components. Finally, the implementation details, testing results and conclusions are presented,
+providing a evaluation of the system's performance and outlining potential areas for future improvement.

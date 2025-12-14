@@ -63,15 +63,17 @@ In order to use this custom configuration file it was necessary to append to the
     \caption{Appending ifplugd recipe}
     \label{fig:yocto-ifplugd-recipe}
 \end{figure}
+\FloatBarrier
 
 For \verb|Dropbear| to work it is required to add a password to the system.
 This was done by adding the following section to the main \verb|hydrogreen-image.bb| file:
-\begin{figure}[!htb]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{images/yocto/set_password.png}\par
     \caption{Setting root password}
     \label{fig:yocto-password}
 \end{figure}
+\FloatBarrier
 
 \subsubsection{Graphical interface}
 During the development of the project a possibility of using cameras as rear view mirrors of the vehicle was explored.

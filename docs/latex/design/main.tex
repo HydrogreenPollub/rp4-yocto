@@ -3,6 +3,39 @@
 \clearpage
 \section{Design}
 
+The system is required to integrate with two existing vehicle architectures. In the first configuration,
+the vehicle is powered by a hydrogen cell kit shown on figure~\ref{fig:protium}. This kit uses an existing
+controller that is operated over \verb|UART|, by a custom PCB called the \textbf{Master Controller}, as shown on figure~\ref{fig:network_master}.
+In the second configuration, the fuel cell is managed directly by a custom-designed board referred to as the
+\verb|Fuel Cell Control Unit (FCCU)|, as shown on figure~\ref{fig:network_fccu}. The telemetry system must be compatible with both setups.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{images/hardware/protium.png}\par
+    \caption{Protium hydrogen cell kit}
+    \label{fig:protium}
+\end{figure}
+
+In addition to interfacing with the vehicle's powertrain components, the system must also integrate with a steering
+wheel PCB responsible for capturing driver inputs. This communication must be done over the \verb|Control Area Network (CAN)|
+protocol. This PCB includes a button that the driver presses to indicate the completion of a lap. This information is critical during
+the race, as teams are required to complete a fixed number of laps and are responsible for tracking lap completion independently.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/diagrams/network_master.png}\par
+    \caption{Vehicle communication when using Protium Kit}
+    \label{fig:network_master}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/diagrams/network_fccu.png}\par
+    \caption{Vehicle communication when using FCCU}
+    \label{fig:network_fccu}
+\end{figure}
+\FloatBarrier
+
+\input{design/linux}
 \input{design/hardware/main}
 \input{design/tools}
-\input{design/linux}

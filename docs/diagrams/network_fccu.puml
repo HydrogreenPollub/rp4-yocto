@@ -1,0 +1,42 @@
+@startuml
+
+package "Vehicle" {
+    frame "RaspberryPI" {
+        [Telemetry]
+        [CSV]
+    }
+    [GPS]
+    [Steering Wheel Controller]
+}
+
+package "Base Station" {
+    [Receiver]
+}
+
+cloud "Server" {
+    [PostgreSQL]
+    [Graphana]
+}
+
+' Inputs
+[GPS] --> [Telemetry] : USB
+[Steering Wheel Controller] -- [Telemetry] : CAN
+[FCCU] -> [Telemetry] : CAN
+
+' Outputs
+[Telemetry] --> [CSV]
+[Telemetry] --> [Receiver] : LORA
+[Receiver] --> [PostgreSQL] : MQTT
+[PostgreSQL] - [Graphana]
+
+' Notes
+note right of [Steering Wheel Controller]
+    Steering Wheel Controller reads information
+    like lap number and speed from telemetry
+    and displays it to the driver.
+
+    It also receives inputs from the driver
+    via buttons and sends it back using CAN.
+end note
+
+@enduml
