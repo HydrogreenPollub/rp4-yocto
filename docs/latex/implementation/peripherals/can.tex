@@ -25,13 +25,19 @@ In this case it's used to set the socket to non-blocking mode.~\cite{advanced-li
 After binding the socket is ready to be used. In this project it is used to read driver inputs and lap times
 from the steering wheel controller. The telemetry also sends information like speed and voltages
 back to the steering wheel to be displayed to the driver.
-% TODO show picture of steering wheel
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/hardware/steering-wheel.png}\par
+    \caption{Steering Wheel Display}
+    \label{fig:steering-wheel}
+\end{figure}
+\FloatBarrier
 
 These actions are performed in a \verb|while(true)| loop. That loop is responsible for two distinct tasks.
 The first task is reading the information being sent by the steering wheel controller.
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=\textwidth]{images/code/can_run_read.png}\par
+    \includegraphics[width=0.9\textwidth]{images/code/can_run_read.png}\par
     \caption{Reading CAN packets}
     \label{fig:code-can-run-read}
 \end{figure}

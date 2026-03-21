@@ -78,7 +78,16 @@ This was done by adding the following section to the main \verb|hydrogreen-image
 \subsubsection{Graphical interface}
 During the development of the project a possibility of using cameras as rear view mirrors of the vehicle was explored.
 
-% TODO x11
+In order to display the video feed a graphical interface was required.
+\verb|X11| was chosen due to how simple it is to add to a Yocto project. It just had to be added the the image features list.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/yocto/x11.png}\par
+    \caption{Adding x11 to the project}
+    \label{fig:yocto-x11}
+\end{figure}
+\FloatBarrier
+
 % TODO get pictures of display and camera used
 
 The camera image would be displayed on a \verb|Waveshare 7" LCD| touchscreen.

@@ -1,3 +1,9 @@
 \paragraph{RS485}
-A serial protocol commonly used in industrial applications
-TODO write more
+A serial protocol commonly used in industrial applications.
+
+The interface is first configured using the \verb|asio| component of the \verb|boost| library.
+It is used for setting the \verb|baudrate| and \verb|stop bit|.
+After that a custom parser is used for communicating with the \verb|Master| board.
+This parser was designed by the boards developer and will not be explained in further detail.
+
+% TODO write about setting the lines with gpiod

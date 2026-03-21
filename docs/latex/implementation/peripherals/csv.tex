@@ -1,3 +1,4 @@
+\clearpage
 \paragraph{CSV}
 The data readings get stored in \verb|/home/root/logs/data_n.csv|, where \verb|n|
 gets incremented on every reboot.
@@ -24,6 +25,7 @@ After this the \verb|CSV| header is written to the newly created file.
 \FloatBarrier
 
 And finally the file is written to every 10ms with the latest data.
+This interval was chosen as a good balance between data granularity and file size.
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{images/code/csv_save.png}\par

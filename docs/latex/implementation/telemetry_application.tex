@@ -22,10 +22,11 @@ The application is written mostly in \verb|C++| with small parts written in \ver
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\textwidth]{images/diagrams/interactions.png}\par
-    \caption{How subsystems interact.}
+    \caption{How subsystems interact}
     \label{fig:diagram-interactions}
 \end{figure}
 
+\clearpage
 \subsubsection{Project Structure}
 The simplified folder structure of the application looks like the following:
 
@@ -38,6 +39,11 @@ The simplified folder structure of the application looks like the following:
 \FloatBarrier
 
 \subsubsection{Data Storage}
-TODO explain how we store data in code and what a flatbuffer is
+Before being sent the latest data readings are kept in a global variable.
+That variable is protected by a mutex, which makes it possible to update the data in multiple threads.
+
+That data is sent via \verb|LoRa| in the form of a \verb|flatbuffer|,
+which is a standardized way of packing multiple variables into a buffer in a space efficient and repeatable way.
+That data is later unpacked and processed by the base station.
 
 \input{implementation/peripherals/main}

@@ -1,3 +1,4 @@
+\clearpage
 \subsubsection{Peripherals}
 Each peripheral has its own way of communicating with our system.
 Each one also runs in a separate thread for performance reasons.
@@ -12,14 +13,13 @@ We initialize them in the \verb|main.cpp| file.
 \FloatBarrier
 
 All of these peripherals are represented by plain functions. In \verb|C++| threads can be created
-by passing these functions to a \verb|std::thread()| function. After that the program can run that thread
-by calling it's \verb|.join()| method \cite{cpp-programming-language}.
+by passing these functions to a \verb|std::thread()| function. These threads are automatically run when created.
+Later when the \verb|running| flag switches to false, the main while loop exits,
+then the program waits for the threads to exit by calling their respective \verb|.join()| method~\cite{cpp-programming-language}.
 
 \input{implementation/peripherals/can}
 \input{implementation/peripherals/csv}
-% TODO rs485
 \input{implementation/peripherals/rs485}
-
-% TODO gps
-% TODO lora
+\input{implementation/peripherals/gps}
+\input{implementation/peripherals/lora}
 % TODO other peripherals
