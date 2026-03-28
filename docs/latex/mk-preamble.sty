@@ -10,18 +10,23 @@
 % Margins
 \usepackage[a4paper,margin=3cm]{geometry}
 
+% PDF pages
+\usepackage{pdfpages}
+
 % Bibliography
 \usepackage[
     backend=biber,
-    style=ieee,
-    citestyle=numeric-comp,
-    natbib=true,
-    sorting=nyt,
-    url=false,
-    doi=false,
-    isbn=true,
-    eprint=false
+    style=numeric,
+    giveninits=true
 ]{biblatex}
+
+\addbibresource{bibliography.bib}
+
+\DeclareNameAlias{default}{family-given}
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{author}{family-given}
+
+\renewcommand*{\finalnamedelim}{\addcomma\space}
 
 % Figure numbering
 \usepackage{chngcntr}
