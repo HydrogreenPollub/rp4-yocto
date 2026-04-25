@@ -8,12 +8,8 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 RDEPENDS:${PN} = "\
     can-utils \
-    cmake \
     dropbear \
     i2c-tools \
-    gdb \
-    git \
-    rsync \
     e2fsprogs-resize2fs \
     packagegroup-rpi-test \
     parted \
