@@ -1,7 +1,11 @@
 #!/bin/sh
 
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 LOGDIR="/home/root/logs"
+
+# Sync system clock from DS3231 RTC before anything else
+hwclock -s
+
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 LOGFILE="$LOGDIR/telemetry_$TIMESTAMP.log"
 
 # Create the log directory if it doesn't exist

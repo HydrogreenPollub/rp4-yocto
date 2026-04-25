@@ -10,12 +10,8 @@ PV = "1.0+git"
 S = "${WORKDIR}/git"
 
 DEPENDS += " \
-    libgpiod (= 2.1.2) \
-    capnproto (= 1.1.0) \
-    boost"
-RDEPENDS_${PN} += " \
-    libgpiod (= 2.1.2) \
-    capnproto (= 1.1.0) \
+    libgpiod \
+    capnproto \
     boost"
 
 inherit cmake
@@ -23,7 +19,7 @@ inherit cmake
 # Enable debug symbols
 TARGET_CFLAGS += "-g"
 # Defines which GPS we're using
-EXTRA_OECMAKE="-DCONFIG_GPS_9600=1"
+EXTRA_OECMAKE = "-DCONFIG_GPS_9600=1 -DTELEMETRY_VERSION=${@d.getVar('SRCREV')[0:8]}"
 
 do_install() {
     # Install the executable

@@ -21,7 +21,7 @@ sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
 
 ### PROJECT OVERVIEW
 The goal of the project is to collect vehicle data via `can` and `rs485`.
-After that we send the data to the base station via `lora`. This is done using a program called `telemetry`.
+After that we send the data to the base station via `lora`. This is done using a program called [telemetry](https://github.com/HydrogreenPollub/rp4-telemetry).
 
 ### DOCUMENTATION
 The project documentation is written in `Markdown` and can be viewed using `mkdocs` with the following commands:

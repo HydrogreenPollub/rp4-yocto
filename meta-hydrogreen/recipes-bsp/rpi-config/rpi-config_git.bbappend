@@ -13,6 +13,9 @@ RPI_EXTRA_CONFIG:append = "dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=
 ENABLE_SPI_BUS = "1"
 RPI_EXTRA_CONFIG:append = "dtoverlay=sc16is752-spi1,int_pin=24\n"
 
+# RTC settings
+RPI_EXTRA_CONFIG:append = "dtoverlay=i2c-rtc,ds3231\n"
+
 # TODO disable bluetooth and audio
 
 # Waveshare display rp4 setup

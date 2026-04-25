@@ -8,13 +8,21 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 RDEPENDS:${PN} = "\
     can-utils \
+    cmake \
     dropbear \
-    libgpiod \
+    i2c-tools \
+    gdb \
+    git \
+    rsync \
+    e2fsprogs-resize2fs \
     packagegroup-rpi-test \
+    parted \
+    resize-rootfs \
     screen \
     telemetry \
     telemetry-init \
     mpv \
+    util-linux-partx \
     v4l-utils \
     ifplugd \
     udev-rules \
