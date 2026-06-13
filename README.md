@@ -18,6 +18,10 @@ bitbake hydrogreen-image-debug
 sudo bmaptool copy tmp/deploy/images/raspberrypi4-64/hydrogreen-image-raspberrypi4-64.rootfs.wic.bz2 <sdcard_device_file>
 ```
 
+**CLion remote build on the Pi** needs `hydrogreen-image-debug`, not the release image. The release image ships runtime libraries only (`capnp`, `libgpiod`, `boost`) without `-dev` headers. The debug image adds `capnproto-dev`, `libgpiod-dev`, and `boost-dev` for on-device compilation.
+
+After flashing the debug image, sync the repo to the Pi, run `git submodule update --init --recursive`, then reload the CMake project in CLion.
+
 **Ubuntu / Mint**
 
 Not supported by the yocto project and needs an additional fix before compiling:
