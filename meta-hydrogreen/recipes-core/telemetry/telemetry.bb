@@ -12,14 +12,14 @@ S = "${WORKDIR}/git"
 DEPENDS += " \
     libgpiod \
     capnproto \
-    boost"
+    boost \
+    pkgconfig-native"
 
-inherit cmake
+inherit cmake pkgconfig
 
 # Enable debug symbols
 TARGET_CFLAGS += "-g"
-# Defines which GPS we're using
-EXTRA_OECMAKE = "-DCONFIG_GPS_9600=1 -DTELEMETRY_VERSION=${@d.getVar('SRCREV')[0:8]}"
+EXTRA_OECMAKE = "-DTELEMETRY_VERSION=${@d.getVar('SRCREV')[0:8]}"
 
 do_install() {
     # Install the executable
